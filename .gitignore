@@ -80,3 +80,4 @@ fabric.properties
 /mix-manifest.json
 /node_modules/
 /.idea/
+/dist/
