@@ -1,5 +1,2 @@
-import Model from './Model';
-
-export {
-    Model
-};
+import { Model as _Model } from './Model';
+export { _Model as Model };

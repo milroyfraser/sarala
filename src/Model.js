@@ -9,7 +9,7 @@ import QueryBuilder from './QueryBuilder';
 
 let ioc = new Ioc();
 
-export default class Model
+export class Model
 {
     constructor (attributes = {}) {
         this.fields = [];
