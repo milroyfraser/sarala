@@ -2,14 +2,14 @@
   "name": "sarala",
   "version": "0.0.3",
   "description": "Javascript library to communicate with RESTful API built following JSON API specification. inspired by Laravel’s Eloquent.",
-  "main": "dist/index.js",
+  "main": "build/index.js",
   "scripts": {
-    "dev": "npm run development",
-    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch-poll": "npm run watch -- --watch-poll",
-    "prod": "npm run production",
-    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    "build": "babel src -d build"
+  },
+  "babel": {
+    "presets": [
+      "latest"
+    ]
   },
   "repository": {
     "type": "git",
@@ -30,14 +30,13 @@
   },
   "homepage": "https://github.com/milroyfraser/sarala#readme",
   "dependencies": {
-    "axios": "^0.17.1",
-    "collect.js": "^4.0.11",
-    "jsona": "^1.1.4",
     "lodash": "^4.17.5",
-    "moment": "^2.20.1"
+    "moment": "^2.20.1",
+    "sarala-json-api-data-formatter": "0.0.4"
   },
   "devDependencies": {
-    "cross-env": "^5.1.3",
-    "laravel-mix": "^2.0.0"
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-latest": "^6.24.1"
   }
 }

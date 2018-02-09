@@ -1,116 +1,258 @@
-import axios from 'axios';
-import collect from 'collect.js';
-import Jsona from 'jsona';
 import _ from 'lodash';
 import moment from 'moment';
-
-import Ioc from './Ioc';
+import { Formatter } from 'sarala-json-api-data-formatter';
 import QueryBuilder from './QueryBuilder';
 
-let ioc = new Ioc();
+const formatter = new Formatter();
 
-export class Model
+export default class Model
 {
-    constructor (attributes = {}) {
-        this.fields = [];
-        this.dates = [];
-        this.attributes = attributes;
-        this.baseUrl = '/api';
+    constructor () {
         this.queryBuilder = new QueryBuilder();
-        ioc.register(this);
-
-        return new Proxy(this, {
-            get: (model, attribute, receiver) => {
-                return this.getAttribute(attribute);
-            }
-        });
     }
 
-    getAttribute(attribute) {
-        let model = this;
-        const skip = ['__ob__', 'constructor'];
+    fields () {
+        return [];
+    }
 
-        if (_.indexOf(skip, attribute) === -1) {
-            if (_.indexOf(['id', 'type'], attribute) != -1) return this.attributes[attribute];
+    dates () {
+        return [];
+    }
 
-            if (_.indexOf(this.fields, attribute) != -1) return this.attributes[attribute];
+    relationships () {
+        return {};
+    }
 
-            if (this.attributes.relationshipNames && this.attributes.relationshipNames.length && (_.indexOf(this.attributes.relationshipNames, attribute) != -1)) {
-                if (! (attribute in model)) {
-                    throw new Error(`Relationship ${attribute} is not defined in ${this.constructor.name}`);
-                }
+    computed () {
+        return {};
+    }
 
-                model[attribute]();
+    resourceName () {
+        return null;
+    }
 
-                if (_.isArray(this.attributes[attribute])) {
-                    return this.resolveCollection(this.attributes[attribute]);
-                }
+    baseUrl () {
+        return '/api';
+    }
 
-                return this.resolveItem(this.attributes[attribute])
-            }
+    dateFormat () {
+        return 'YYYY-MM-DD HH:mm'
+    }
 
-            const accessor = this.getAccessorName(attribute);
+    resourceUrl () {
+        return `${this.baseUrl()}/${this.resourceName()}/`;
+    }
 
-            if (accessor in model) {
-                if (this.attributes[attribute]) return model[accessor](this.attributes[attribute]);
+    async all () {
+        let response = await this.request({
+            url: `${this.resourceUrl()}${this.queryBuilder.getQuery()}`,
+            method: 'GET'
+        });
 
-                return model[accessor]();
-            }
+        return this.respond(response.data);
+    }
 
-            if (_.indexOf(this.dates, attribute) != -1) return moment(this.attributes[attribute]);
+    async find (id) {
+        let response = await this.request({
+            url: `${this.resourceUrl()}${id}${this.queryBuilder.getQuery()}`,
+            method: 'GET'
+        });
+
+        return this.respond(response.data);
+    }
+
+    async save (data = {}, pivot = null) {
+        if (this.id && data.id && data.type) {
+            this.attach(data, pivot);
         }
 
-        return model[attribute];
+        if (this.id) {
+            return this.update();
+        }
+
+        return this.create();
     }
 
-    getAccessorName(attribute) {
-        return `get${_.replace(_.startCase(attribute), ' ', '')}Attribute`;
+    async create () {
+        let response = await this.request({
+            url: this.resourceUrl(),
+            method: 'POST',
+            data: this.serialize(this.data())
+        });
+
+        return this.respond(response.data);
     }
 
-    async all() {
-        let response = await axios.get(this.getUrl());
+    async update () {
+        let response = await this.request({
+            url: `${this.baseUrl()}${this.links.self}`,
+            method: 'PUT',
+            data: this.serialize(this.data())
+        });
 
-        return this.resolveCollection(this.deserialize(response.data));
+        return this.respond(response.data);
     }
 
-    with(resourceName) {
+    delete () {
+        return this.request({
+            url: `${this.baseUrl()}${this.links.self}`,
+            method: 'DELETE'
+        });
+
+        return this.respond(respond.data);
+    }
+
+    async attach (model, data = null) {
+        let config = {
+            url: `${this.baseUrl()}${this.links.self}/${model.type}/${model.id}`,
+            method: 'POST'
+        };
+
+        if (data) {
+            config.data = data;
+        }
+
+        let response = await this.request(config);
+
+        return this.respond(response.data);
+    }
+
+    async detach (model) {
+        let response = await this.request({
+            url: `${this.baseUrl()}${this.links.self}/${model.type}/${model.id}`,
+            method: 'DELETE'
+        });
+
+        return this.respond(response.data);
+    }
+
+    async sync (relationship) {
+        const data = this.serialize(this.data()[relationship]);
+
+        let respond = await this.request({
+            url: `${this.baseUrl()}${this.links.self}/${relationship}`,
+            method: 'PUT',
+            data: data
+        });
+
+        return this.respond(respond.data);
+    }
+
+    async request (config) {
+        // to be implemented in base model
+    }
+
+    respond (response) {
+        let data = this.deserialize(response);
+
+        if (_.isArray(data)) {
+            return this.resolveCollection(data);
+        }
+
+        return this.resolveItem(data);
+    }
+
+    with (resourceName) {
         this.queryBuilder.include(resourceName);
 
         return this;
     }
 
-    getUrl() {
-        return `${this.baseUrl}/${this.attributes.type}${this.queryBuilder.getQuery()}`
-    }
-
     deserialize (data) {
-        const dataFormatter = new Jsona();
-
-        return dataFormatter.deserialize(data);
+        return formatter.deserialize(data);
     }
 
-    resolveCollection (data) {
+    serialize (data) {
+        return formatter.serialize(data);
+    }
+
+    resolveCollection (data, parent = null) {
         let thiss = this;
 
-        return collect(data).map(item => thiss.resolveItem(item)).all();
+        return _.map(data, item => thiss.resolveItem(item, parent));
     }
 
-    resolveItem (item) {
-        return ioc.resolve(item);
+    resolveItem (data, parent = null) {
+        return this.hydrate(data, parent);
     }
 
-    hasMany(model) {
-        return this.relationship('hasMany', model);
-    }
+    hydrate (data, parent = null) {
+        let model = _.clone(this);
 
-    hasOne(model) {
-        return this.relationship('hasOne', model);
-    }
+        model.id = data.id;
+        model.type = data.type;
 
-    relationship(type, model) {
-        return {
-            type: type,
-            model: new model()
+        if (data.relationships) {
+            model.relationshipNames = data.relationships;
         }
+
+        model.links = {
+            self: `/${data.type}/${data.id}`
+        };
+
+        if (parent) {
+            model.links.self = `/${parent.resourceName()}/${parent.id}${model.links.self}`;
+        }
+
+        _.forEach(this.fields(), field => {
+            model[field] = data[field];
+        });
+
+        _.forEach(this.dates(), field => {
+            model[field] = moment(data[field]);
+        });
+
+        _.forEach(data.relationships, relationship => {
+            let relation = model.relationships()[relationship];
+
+            if (! relation) {
+                throw new Error(`Relationship ${relationship} is not defined in ${relation.constructor.name}`);
+            }
+
+            if (_.isArray(data[relationship])) {
+                model[relationship] = relation.resolveCollection(data[relationship], model);
+            } else {
+                model[relationship] = relation.resolveItem(data[relationship], model);
+            }
+        });
+
+        _.forOwn(model.computed(), (computation, key) => {
+            model[key] = computation(model);
+        });
+
+        return model;
+    }
+
+    data () {
+        let data = {};
+
+        data.id = this.id;
+        data.type = this.type;
+
+        if (this.relationshipNames) {
+            data.relationships = this.relationshipNames;
+        }
+
+        _.forEach(this.fields(), field => {
+            data[field] = this[field];
+        });
+
+        _.forEach(this.dates(), field => {
+            data[field] = this[field].format(this.dateFormat());
+        });
+
+        let thiss = this;
+
+        _.forEach(thiss.relationships(), (model, relationship) => {
+            if (_.isArray(this[relationship])) {
+                data[relationship] = _.map(this[relationship], relation => {
+                    return relation.data();
+                });
+            } else {
+                data[relationship] = this[relationship].data();
+            }
+        });
+
+        return data;
     }
 }
