@@ -4,7 +4,11 @@
   "description": "Javascript library to communicate with RESTful API built following JSON API specification. inspired by Laravel’s Eloquent.",
   "main": "build/index.js",
   "scripts": {
-    "build": "babel src -d build"
+    "build": "babel src -d build",
+    "t": "jest",
+    "tw": "jest --watch",
+    "cc": "jest --coverage",
+    "cs": "./node_modules/.bin/eslint src/*"
   },
   "repository": {
     "type": "git",
@@ -27,13 +31,20 @@
   "dependencies": {
     "lodash": "^4.17.5",
     "moment": "^2.20.1",
-    "sarala-json-api-data-formatter": "0.0.4"
+    "sarala-json-api-data-formatter": "^0.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-latest": "^6.24.1"
+    "babel-preset-latest": "^6.24.1",
+    "eslint": "^4.17.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^6.0.0",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "jest": "^22.3.0"
   }
 }
