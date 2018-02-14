@@ -1,6 +1,6 @@
 {
     "extends": "standard",
     "rules": {
-        "indent": [2, 2]
+        "indent": [2, 4]
     }
 }

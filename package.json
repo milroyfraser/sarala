@@ -8,7 +8,8 @@
     "t": "jest",
     "tw": "jest --watch",
     "cc": "jest --coverage",
-    "cs": "./node_modules/.bin/eslint src/*"
+    "cs": "./node_modules/.bin/eslint src/*",
+    "csf": "./node_modules/.bin/eslint src/* --fix"
   },
   "repository": {
     "type": "git",
