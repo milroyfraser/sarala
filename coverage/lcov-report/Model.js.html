@@ -1,0 +1,965 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for Model.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="prettify.css" />
+    <link rel="stylesheet" href="base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="index.html">All files</a> Model.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">12.77% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>12/94</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">13.16% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>5/38</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">20.51% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>8/39</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">12.77% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>12/94</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import _ from 'lodash';
+import moment from 'moment';
+import { Formatter } from 'sarala-json-api-data-formatter';
+import QueryBuilder from './QueryBuilder';
+&nbsp;
+const formatter = new Formatter();
+&nbsp;
+export default class Model {
+    constructor () {
+        this.queryBuilder = new QueryBuilder();
+        this.selfValidate();
+    }
+&nbsp;
+    // override
+&nbsp;
+    fields () {
+        return [];
+    }
+&nbsp;
+    dates () {
+        return [];
+    }
+&nbsp;
+    relationships () {
+        return {};
+    }
+&nbsp;
+    computed () {
+        return {};
+    }
+&nbsp;
+    resourceName () {
+        return null;
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    ba</span>seUrl () {
+<span class="cstat-no" title="statement not covered" >        return '/api';</span>
+    }
+&nbsp;
+    dateFormat () {
+        return 'YYYY-MM-DD HH:mm';
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    as</span>ync request (config) {
+        // to be implemented in base model
+    }
+&nbsp;
+    // requests
+&nbsp;
+<span class="fstat-no" title="function not covered" >    as</span>ync find (id) {
+        let response = <span class="cstat-no" title="statement not covered" >await this.request({</span>
+            url: `${this.resourceUrl()}${id}${this.queryBuilder.getQuery()}`,
+            method: 'GET'
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return this.respond(response.data);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    as</span>ync all () {
+        let response = <span class="cstat-no" title="statement not covered" >await this.request({</span>
+            url: `${this.resourceUrl()}${this.queryBuilder.getQuery()}`,
+            method: 'GET'
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return this.respond(response.data);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    as</span>ync paginate (perPage = <span class="branch-0 cbranch-no" title="branch not covered" >null,</span> page = <span class="branch-0 cbranch-no" title="branch not covered" >null)</span> {
+<span class="cstat-no" title="statement not covered" >        this.queryBuilder.paginate(perPage, page);</span>
+&nbsp;
+        let response = <span class="cstat-no" title="statement not covered" >await this.request({</span>
+            url: `${this.resourceUrl()}${this.queryBuilder.getQuery()}`,
+            method: 'GET'
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return this.respond(response.data);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    as</span>ync save (data = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> pivot = <span class="branch-0 cbranch-no" title="branch not covered" >null)</span> {
+<span class="cstat-no" title="statement not covered" >        if (this.hasOwnProperty('id') &amp;&amp; data.hasOwnProperty('id') &amp;&amp; data.hasOwnProperty('type')) {</span>
+<span class="cstat-no" title="statement not covered" >            this.attach(data, pivot);</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (this.hasOwnProperty('id')) {</span>
+<span class="cstat-no" title="statement not covered" >            return this.update();</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return this.create();</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    as</span>ync create () {
+        let response = <span class="cstat-no" title="statement not covered" >await this.request({</span>
+            url: this.resourceUrl(),
+            method: 'POST',
+            data: this.serialize(this.data())
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return this.respond(response.data);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    as</span>ync update () {
+        let response = <span class="cstat-no" title="statement not covered" >await this.request({</span>
+            url: this.links.self,
+            method: 'PUT',
+            data: this.serialize(this.data())
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return this.respond(response.data);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    de</span>lete () {
+        let response = <span class="cstat-no" title="statement not covered" >this.request({</span>
+            url: this.links.self,
+            method: 'DELETE'
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return this.respond(response.data);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    as</span>ync attach (model, data = <span class="branch-0 cbranch-no" title="branch not covered" >null)</span> {
+        let config = <span class="cstat-no" title="statement not covered" >{</span>
+            url: `${this.links.self}/${model.type}/${model.id}`,
+            method: 'POST'
+        };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (data) {</span>
+<span class="cstat-no" title="statement not covered" >            config.data = data;</span>
+        }
+&nbsp;
+        let response = <span class="cstat-no" title="statement not covered" >await this.request(config);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return this.respond(response.data);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    as</span>ync detach (model) {
+        let response = <span class="cstat-no" title="statement not covered" >await this.request({</span>
+            url: `${this.links.self}/${model.type}/${model.id}`,
+            method: 'DELETE'
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return this.respond(response.data);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    as</span>ync sync (relationship) {
+        const data = <span class="cstat-no" title="statement not covered" >this.serialize(this.data()[relationship]);</span>
+&nbsp;
+        let respond = <span class="cstat-no" title="statement not covered" >await this.request({</span>
+            url: `${this.links.self}/${relationship}`,
+            method: 'PUT',
+            data: data
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return this.respond(respond.data);</span>
+    }
+&nbsp;
+    // modify query string
+&nbsp;
+<span class="fstat-no" title="function not covered" >    wi</span>th (resourceName) {
+<span class="cstat-no" title="statement not covered" >        this.queryBuilder.include(resourceName);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return this;</span>
+    }
+&nbsp;
+    // build model
+&nbsp;
+<span class="fstat-no" title="function not covered" >    re</span>spond (response) {
+        let data = <span class="cstat-no" title="statement not covered" >this.deserialize(response);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (this.isCollection(data)) {</span>
+<span class="cstat-no" title="statement not covered" >            return this.resolveCollection(data);</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return this.resolveItem(data);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    re</span>solveCollection (data) {
+        let thiss = <span class="cstat-no" title="statement not covered" >this;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return _.map(data.data, <span class="fstat-no" title="function not covered" >it</span>em =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            return thiss.resolveItem(item);</span>
+        });
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    re</span>solveItem (data) {
+<span class="cstat-no" title="statement not covered" >        return this.hydrate(data);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    hy</span>drate (data) {
+        let model = <span class="cstat-no" title="statement not covered" >_.clone(this);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        model.id = data.id;</span>
+<span class="cstat-no" title="statement not covered" >        model.type = data.type;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (data.hasOwnProperty('relationships')) {</span>
+<span class="cstat-no" title="statement not covered" >            model.relationshipNames = data.relationships;</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (data.hasOwnProperty('links')) {</span>
+<span class="cstat-no" title="statement not covered" >            model.links = data.links;</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _.forEach(this.fields(), <span class="fstat-no" title="function not covered" >fi</span>eld =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            model[field] = data[field];</span>
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _.forEach(this.dates(), <span class="fstat-no" title="function not covered" >fi</span>eld =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            model[field] = moment(data[field]);</span>
+        });
+&nbsp;
+        const thiss = <span class="cstat-no" title="statement not covered" >this;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _.forEach(data.relationships, <span class="fstat-no" title="function not covered" >re</span>lationship =&gt; {</span>
+            let relation = <span class="cstat-no" title="statement not covered" >model.relationships()[relationship];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (!relation) {</span>
+<span class="cstat-no" title="statement not covered" >                throw new Error(`Sarale: Relationship ${relationship} has not been defined in ${model.constructor.name} model.`);</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (thiss.isCollection(data[relationship])) {</span>
+<span class="cstat-no" title="statement not covered" >                model[relationship] = relation.resolveCollection(data[relationship]);</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                model[relationship] = relation.resolveItem(data[relationship].data);</span>
+            }
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _.forOwn(model.computed(), <span class="fstat-no" title="function not covered" >(c</span>omputation, key) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            model[key] = computation(model);</span>
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return model;</span>
+    }
+&nbsp;
+    // extract data from model
+&nbsp;
+<span class="fstat-no" title="function not covered" >    da</span>ta () {
+        let data = <span class="cstat-no" title="statement not covered" >{};</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        data.id = this.id;</span>
+<span class="cstat-no" title="statement not covered" >        data.type = this.type;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (this.hasOwnProperty('relationshipNames')) {</span>
+<span class="cstat-no" title="statement not covered" >            data.relationships = this.relationshipNames;</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _.forEach(this.fields(), <span class="fstat-no" title="function not covered" >fi</span>eld =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            data[field] = this[field];</span>
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _.forEach(this.dates(), <span class="fstat-no" title="function not covered" >fi</span>eld =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            data[field] = this[field].format(this.dateFormat());</span>
+        });
+&nbsp;
+        let thiss = <span class="cstat-no" title="statement not covered" >this;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _.forEach(thiss.relationships(), <span class="fstat-no" title="function not covered" >(m</span>odel, relationship) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            if (!_.isUndefined(thiss[relationship])) {</span>
+<span class="cstat-no" title="statement not covered" >                if (_.isArray(thiss[relationship])) {</span>
+<span class="cstat-no" title="statement not covered" >                    data[relationship] = {</span>
+                        data_collection: true,
+                        data: _.map(thiss[relationship], <span class="fstat-no" title="function not covered" >re</span>lation =&gt; {
+<span class="cstat-no" title="statement not covered" >                            return relation.data();</span>
+                        })
+                    };
+                } else {
+<span class="cstat-no" title="statement not covered" >                    data[relationship] = {</span>
+                        data: thiss[relationship].data()
+                    };
+                }
+            }
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return data;</span>
+    }
+&nbsp;
+    // helpers
+&nbsp;
+<span class="fstat-no" title="function not covered" >    re</span>sourceUrl () {
+<span class="cstat-no" title="statement not covered" >        return `${this.baseUrl()}/${this.resourceName()}/`;</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    is</span>Collection (data) {
+<span class="cstat-no" title="statement not covered" >        return data.hasOwnProperty('data_collection') &amp;&amp; data.data_collection === true &amp;&amp; _.isArray(data.data);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    de</span>serialize (data) {
+<span class="cstat-no" title="statement not covered" >        return formatter.deserialize(data);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    se</span>rialize (data) {
+<span class="cstat-no" title="statement not covered" >        return formatter.serialize(data);</span>
+    }
+&nbsp;
+    selfValidate () {
+        const name = this.resourceName();
+&nbsp;
+        if (name === null || !_.isString(name) || name.length === 0) {
+            throw new Error(`Sarale: Resource name not defined in ${this.constructor.name} model. Implement resourceName method in the ${this.constructor.name} model to resolve this error.`);
+        }
+    }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Feb 14 2018 22:24:08 GMT+0530 (+0530)
+</div>
+</div>
+<script src="prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="sorter.js"></script>
+</body>
+</html>

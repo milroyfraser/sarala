@@ -1,14 +1,14 @@
-import _ from 'lodash'
+import _ from 'lodash';
 
 export default class QueryBuilder {
     constructor () {
-        this.includes = []
-        this.pagination = {}
+        this.includes = [];
+        this.pagination = {};
     }
 
     include (resourceName) {
         if (!this.includes[resourceName]) {
-            this.includes.push(resourceName)
+            this.includes.push(resourceName);
         }
     }
 
@@ -16,30 +16,30 @@ export default class QueryBuilder {
         this.pagination = {
             size: perPage,
             number: page
-        }
+        };
     }
 
     getQuery () {
-        let query = ''
+        let query = '';
 
         if (this.includes.length) {
-            query = `include=${this.includes.toString()}`
+            query = `include=${this.includes.toString()}`;
         }
 
         if (!_.isEmpty(this.pagination)) {
-            let pageQuery = `page[size]=${this.pagination.size}&page[number]=${this.pagination.number}`
+            let pageQuery = `page[size]=${this.pagination.size}&page[number]=${this.pagination.number}`;
 
             if (query.length) {
-                pageQuery = `&${pageQuery}`
+                pageQuery = `&${pageQuery}`;
             }
 
-            query += pageQuery
+            query += pageQuery;
         }
 
         if (query.length) {
-            query = `?${query}`
+            query = `?${query}`;
         }
 
-        return query
+        return query;
     }
 }
