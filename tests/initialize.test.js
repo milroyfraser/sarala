@@ -1,5 +1,5 @@
-import Fool from "./dummy/models/Fool";
-import Unicorn from "./dummy/models/Unicorn";
+import Fool from './dummy/models/Fool';
+import Unicorn from './dummy/models/Unicorn';
 
 const initModelLikeAFool = () => {
     new Fool();

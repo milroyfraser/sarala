@@ -9,6 +9,7 @@ export default class Model {
     constructor () {
         this.queryBuilder = new QueryBuilder();
         this.selfValidate();
+        this.type = this.resourceName();
     }
 
     // override
@@ -164,21 +165,36 @@ export default class Model {
     // build model
 
     respond (response) {
-        let data = this.deserialize(response);
+        if (! _.isEmpty(response)) {
+            let data = this.deserialize(response);
 
-        if (this.isCollection(data)) {
-            return this.resolveCollection(data);
+            if (this.isCollection(data)) {
+                return this.resolveCollection(data);
+            }
+
+            return this.resolveItem(data);
         }
 
-        return this.resolveItem(data);
+        return null;
     }
 
     resolveCollection (data) {
         let thiss = this;
+        let resolved = {};
 
-        return _.map(data.data, item => {
+        if (data.hasOwnProperty('links')) {
+            resolved.links = data.links;
+        }
+
+        if (data.hasOwnProperty('meta')) {
+            resolved.meta = data.meta;
+        }
+
+        resolved.data = _.map(data.data, item => {
             return thiss.resolveItem(item);
         });
+
+        return resolved;
     }
 
     resolveItem (data) {
@@ -235,29 +251,36 @@ export default class Model {
     data () {
         let data = {};
 
-        data.id = this.id;
         data.type = this.type;
+
+        if (this.hasOwnProperty('id')) {
+            data.id = this.id;
+        }
 
         if (this.hasOwnProperty('relationshipNames')) {
             data.relationships = this.relationshipNames;
         }
 
         _.forEach(this.fields(), field => {
-            data[field] = this[field];
+            if (!_.isUndefined(this[field])) {
+                data[field] = this[field];
+            }
         });
 
         _.forEach(this.dates(), field => {
-            data[field] = this[field].format(this.dateFormat());
+            if (!_.isUndefined(this[field])) {
+                data[field] = this[field].format(this.dateFormat());
+            }
         });
 
         let thiss = this;
 
         _.forEach(thiss.relationships(), (model, relationship) => {
             if (!_.isUndefined(thiss[relationship])) {
-                if (_.isArray(thiss[relationship])) {
+                if (_.isArray(thiss[relationship].data)) {
                     data[relationship] = {
                         data_collection: true,
-                        data: _.map(thiss[relationship], relation => {
+                        data: _.map(thiss[relationship].data, relation => {
                             return relation.data();
                         })
                     };

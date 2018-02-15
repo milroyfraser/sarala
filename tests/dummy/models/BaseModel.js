@@ -6,7 +6,11 @@ export default class BaseModel extends Model
         return 'https://sarala-demo.app/api';
     }
 
-    request (config) {
-        // make the request to the api here
+    async request (config) {
+        this.testApiRequest = config;
+
+        return {
+            data: this.testApiResponse
+        };
     }
 }

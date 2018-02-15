@@ -1,7 +1,7 @@
 import Model from './BaseModel';
-import Comment from "./Comment";
-import Tag from "./Tag";
-import User from "./User";
+import Comment from './Comment';
+import Tag from './Tag';
+import User from './User';
 
 export default class Post extends Model {
     resourceName () {
@@ -9,7 +9,7 @@ export default class Post extends Model {
     }
 
     fields () {
-        return ['title', 'subtitle', 'body'];
+        return ['title', 'subtitle', 'body', 'slug'];
     }
 
     dates () {

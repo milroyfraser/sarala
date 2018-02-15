@@ -1,5 +1,5 @@
 import Model from './BaseModel';
-import Post from "./Post";
+import Post from './Post';
 
 export default class User extends Model {
     resourceName () {

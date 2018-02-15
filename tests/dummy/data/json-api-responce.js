@@ -18,6 +18,19 @@ export const Post = {
     }
 };
 
+export const Tag = {
+    "data": {
+        "type": "tags",
+        "id": "5",
+        "attributes": {
+            "name": "voluptates"
+        },
+        "links": {
+            "self": "https:\/\/sarala-demo.app\/api\/tags\/1"
+        }
+    }
+};
+
 export const PostWithAllNesterRelations = {
     "data": {
         "type": "posts",

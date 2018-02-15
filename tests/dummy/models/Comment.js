@@ -1,5 +1,5 @@
 import Model from './BaseModel';
-import User from "./User";
+import User from './User';
 
 export default class Comment extends Model {
     resourceName () {
