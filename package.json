@@ -1,6 +1,6 @@
 {
   "name": "sarala",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Javascript library to communicate with RESTful API built following JSON API specification. inspired by Laravel’s Eloquent.",
   "main": "build/index.js",
   "scripts": {
