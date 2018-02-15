@@ -1,4 +1,7 @@
 # sarala
+
+[![codecov](https://codecov.io/gh/milroyfraser/sarala/branch/master/graph/badge.svg)](https://codecov.io/gh/milroyfraser/sarala)
+
 > Javascript library to communicate with RESTful API built following JSON API specification. inspired by Laravel’s Eloquent
 
 
