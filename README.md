@@ -175,6 +175,7 @@ tag.delete();
 
 TODO:
 - Document `post.attach(tag)`, `post.detach(tag)` and `post.sync(tags)`
+- Document model computed properties
 - Implement Sparse Fieldsets
 - Implement Sorting
 - Implement Filtering
