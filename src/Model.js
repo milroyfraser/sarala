@@ -34,10 +34,6 @@ export default class Model {
         return null;
     }
 
-    baseUrl () {
-        return '/api';
-    }
-
     dateFormat () {
         return 'YYYY-MM-DD HH:mm';
     }
@@ -77,11 +73,7 @@ export default class Model {
         return this.respond(response.data);
     }
 
-    async save (data = {}, pivot = null) {
-        if (this.hasOwnProperty('id') && data.hasOwnProperty('id') && data.hasOwnProperty('type')) {
-            this.attach(data, pivot);
-        }
-
+    async save () {
         if (this.hasOwnProperty('id')) {
             return this.update();
         }
@@ -109,7 +101,7 @@ export default class Model {
         return this.respond(response.data);
     }
 
-    delete () {
+    async delete () {
         let response = this.request({
             url: this.links.self,
             method: 'DELETE'
@@ -143,12 +135,12 @@ export default class Model {
     }
 
     async sync (relationship) {
-        const data = this.serialize(this.data()[relationship]);
+        const data = this.serialize(this.data());
 
         let respond = await this.request({
             url: `${this.links.self}/${relationship}`,
             method: 'PUT',
-            data: data
+            data: data.data.relationships[relationship]
         });
 
         return this.respond(respond.data);
@@ -228,7 +220,7 @@ export default class Model {
         _.forEach(data.relationships, relationship => {
             let relation = model.relationships()[relationship];
 
-            if (!relation) {
+            if (_.isUndefined(relation)) {
                 throw new Error(`Sarale: Relationship ${relationship} has not been defined in ${model.constructor.name} model.`);
             }
 

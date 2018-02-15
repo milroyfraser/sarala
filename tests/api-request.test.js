@@ -2,11 +2,12 @@ import Post from './dummy/models/Post';
 import Tag from './dummy/models/Tag';
 import {
     Post as ApiPost,
+    PostWithAllNesterRelations as ApiPostWithAllNesterRelations,
     Tag as ApiTag
 } from './dummy/data/json-api-responce';
 
 describe('api requests', () => {
-    test('saving new object without an id should make a post to resource endpoint', async () => {
+    test('saving new object without an id should make a post request to resource endpoint', async () => {
         const post = new Post();
         post.title = 'Article evident arrived express highest men did boy.';
         post.subtitle = 'Mistress sensible entirely am so. Quick can manor smart money hopes worth too. Comfort produce husband boy her had hearing.';
@@ -27,7 +28,7 @@ describe('api requests', () => {
         });
     });
 
-    test('saving pre hydrated object with an id should make a put to resource endpoint', async () => {
+    test('saving pre hydrated object with an id should make a put request to resource endpoint', async () => {
         const post = new Post();
         post.testApiResponse = ApiPost;
 
@@ -54,6 +55,96 @@ describe('api requests', () => {
             },
             'method': 'PUT',
             'url': 'https://sarala-demo.app/api/posts/1'
+        });
+    });
+
+    test('deleting pre hydrated object should make a delete request to resource endpoint', async () => {
+        const post = new Post();
+        post.testApiResponse = ApiPost;
+        let result = await post.find(1);
+
+        await result.delete();
+
+        expect(result.testApiRequest).toEqual({
+            'method': 'DELETE',
+            'url': 'https://sarala-demo.app/api/posts/1'
+        });
+    });
+
+    test('attaching another object should make a post request to combined endpoint', async () => {
+        const post = new Post();
+        post.testApiResponse = ApiPost;
+        let postResult = await post.find(1);
+
+        const tag = new Tag();
+        tag.testApiResponse = ApiTag;
+        let tagResult = await tag.find(1);
+
+        await postResult.attach(tagResult);
+
+        expect(postResult.testApiRequest).toEqual({
+            'method': 'POST',
+            'url': 'https://sarala-demo.app/api/posts/1/tags/5'
+        });
+    });
+
+    test('attaching another object with pivot date should make a post request to combined endpoint with pivot data', async () => {
+        const post = new Post();
+        post.testApiResponse = ApiPost;
+        let postResult = await post.find(1);
+
+        const tag = new Tag();
+        tag.testApiResponse = ApiTag;
+        let tagResult = await tag.find(1);
+
+        await postResult.attach(tagResult, { foo: 'bar', baz: 100 });
+
+        expect(postResult.testApiRequest).toEqual({
+            'data': { 'baz': 100, 'foo': 'bar' },
+            'method': 'POST',
+            'url': 'https://sarala-demo.app/api/posts/1/tags/5'
+        });
+    });
+
+    test('detaching another object should make a delete request to combined endpoint', async () => {
+        const post = new Post();
+        post.testApiResponse = ApiPost;
+        let postResult = await post.find(1);
+
+        const tag = new Tag();
+        tag.testApiResponse = ApiTag;
+        let tagResult = await tag.find(1);
+
+        await postResult.detach(tagResult);
+
+        expect(postResult.testApiRequest).toEqual({
+            'method': 'DELETE',
+            'url': 'https://sarala-demo.app/api/posts/1/tags/5'
+        });
+    });
+
+    test('sync relationship should make a put request to combined endpoint', async () => {
+        const post = new Post();
+        post.testApiResponse = ApiPostWithAllNesterRelations;
+        let postResult = await post.find(1);
+
+        await postResult.sync('tags');
+
+        expect(postResult.testApiRequest).toEqual({
+            'data': {
+                'data': [
+                    {
+                        'id': '1',
+                        'type': 'tags'
+                    },
+                    {
+                        'id': '15',
+                        'type': 'tags'
+                    }
+                ]
+            },
+            'method': 'PUT',
+            'url': 'https://sarala-demo.app/api/posts/1/tags'
         });
     });
 });

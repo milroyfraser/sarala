@@ -7,6 +7,7 @@ import {
 import User from './dummy/models/User';
 import Tag from './dummy/models/Tag';
 import Comment from './dummy/models/Comment';
+import PostNoTagRelation from "./dummy/models/PostNoTagRelation";
 
 describe('it hydrates', () => {
     test('single object', async () => {
@@ -61,5 +62,12 @@ describe('it hydrates', () => {
         expect(result.comments.data[1]).toBeInstanceOf(Comment);
         expect(result.comments.data[0].author).toBeInstanceOf(User);
         expect(result.comments.data[1].author).toBeInstanceOf(User);
+    });
+
+    test('should throw an error when relation ship is not defined', async () => {
+        const post = new PostNoTagRelation();
+        post.testApiResponse = ApiPostWithAllNesterRelations;
+
+        await expect(post.find(1)).rejects.toThrow('Sarale: Relationship tags has not been defined in PostNoTagRelation model.');
     });
 });
