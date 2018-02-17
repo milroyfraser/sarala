@@ -62,7 +62,7 @@ export default class Model {
         return this.respond(response.data);
     }
 
-    async paginate (perPage = null, page = null) {
+    async paginate (perPage = 10, page = 1) {
         this.queryBuilder.paginate(perPage, page);
 
         let response = await this.request({
@@ -150,6 +150,38 @@ export default class Model {
 
     with (resourceName) {
         this.queryBuilder.include(resourceName);
+
+        return this;
+    }
+
+    orderBy (column, direction = 'asc') {
+        this.queryBuilder.orderBy(column, direction);
+
+        return this;
+    }
+
+    orderByDesc (column) {
+        return this.orderBy(column, 'desc');
+    }
+
+    where (key, value = null, group = null) {
+        this.queryBuilder.where(key, value, group);
+
+        return this;
+    }
+
+    filter (filter, group = null) {
+        return this.where(filter, null, group);
+    }
+
+    select (fields) {
+        if (_.isArray(fields)) {
+            const selectFields = _.clone(fields);
+            fields = {};
+            fields[this.resourceName()] = selectFields;
+        }
+
+        this.queryBuilder.select(fields);
 
         return this;
     }
