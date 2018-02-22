@@ -4,6 +4,7 @@
 
 > Javascript library to communicate with RESTful API built following JSON API specification. inspired by Laravel’s Eloquent
 
+### [Documentation](https://milroy.me/posts/sarala-laravel-eloquent-like-javascript-orm-to-communicate-with-json-api/1)
 
 ## Install
 
@@ -15,7 +16,7 @@ $ npm i sarala --save
 $ yarn add sarala
 ```
 
-# Usage
+# Basic Usage
 
 ## Model Implementation
 
@@ -95,7 +96,6 @@ export default class Tag extends Model {
 
 ## Fetching data
 
-##### app/components/MyComponent.js
 ```javascript
 import Post from './../models/Post';
 
@@ -117,22 +117,6 @@ const paginatePosts = async (page) => {
 };
 ```
 
-## Fetching data with relationships
-
-##### app/components/MyComponent.js
-
-```javascript
-import Post from './../models/Post';
-
-const post = new Post();
-
-// makes a GET request to https://sarala-demo.app/api/posts/{id}?include=tags,author,comments.author
-const findPost = async (id) => {
-    let post = await post.with(['tags', 'author', 'comments.author']).find(id);
-};
-```
-You can chain `.with([..]);` method to `.find(1);`, `all()` and `.paginate(10,2);`
-
 ## Insert
 
 ##### app/components/MyComponent.js
@@ -147,35 +131,4 @@ tag.save();
 // or you can directly call tag.create();
 ```
 
-## Update
-
-##### app/components/MyComponent.js
-```javascript
-import Tag from './../models/Tag';
-
-let tag = await tag.find(10);
-tag.name = 'new tag name';
-
-// makes a PUT request to https://sarala-demo.app/api/tags/10
-tag.save();
-// or you can directly call tag.update();
-```
-
-## Delete
-
-##### app/components/MyComponent.js
-```javascript
-import Tag from './../models/Tag';
-
-let tag = await tag.find(10);
-
-// makes a DELETE request to https://sarala-demo.app/api/tags/10
-tag.delete();
-```
-
-TODO:
-- Document `post.attach(tag)`, `post.detach(tag)` and `post.sync(tags)`
-- Document model computed properties
-- Implement Sparse Fieldsets
-- Implement Sorting
-- Implement Filtering
+## Learn More: [Documentation](https://milroy.me/posts/sarala-laravel-eloquent-like-javascript-orm-to-communicate-with-json-api/1)
