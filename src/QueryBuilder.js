@@ -2,6 +2,10 @@ import _ from 'lodash';
 
 export default class QueryBuilder {
     constructor () {
+        this.reset();
+    }
+
+    reset () {
         this.query = '';
         this.includes = [];
         this.sort = [];

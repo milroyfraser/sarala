@@ -45,30 +45,26 @@ export default class Model {
     // requests
 
     async find (id) {
-        let response = await this.request({
-            url: `${this.resourceUrl()}${id}${this.queryBuilder.getQuery()}`,
-            method: 'GET'
-        });
+        const requestConfig = { method: 'GET', url: `${this.resourceUrl()}${id}${this.queryBuilder.getQuery()}` };
+        this.queryBuilder.reset();
+        let response = await this.request(requestConfig);
 
         return this.respond(response.data);
     }
 
     async all () {
-        let response = await this.request({
-            url: `${this.resourceUrl()}${this.queryBuilder.getQuery()}`,
-            method: 'GET'
-        });
+        const requestConfig = { method: 'GET', url: `${this.resourceUrl()}${this.queryBuilder.getQuery()}` };
+        this.queryBuilder.reset();
+        let response = await this.request(requestConfig);
 
         return this.respond(response.data);
     }
 
     async paginate (perPage = 10, page = 1) {
         this.queryBuilder.paginate(perPage, page);
-
-        let response = await this.request({
-            url: `${this.resourceUrl()}${this.queryBuilder.getQuery()}`,
-            method: 'GET'
-        });
+        const requestConfig = { method: 'GET', url: `${this.resourceUrl()}${this.queryBuilder.getQuery()}` };
+        this.queryBuilder.reset();
+        let response = await this.request(requestConfig);
 
         return this.respond(response.data);
     }

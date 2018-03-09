@@ -172,4 +172,16 @@ describe('query builder', () => {
             url: 'https://sarala-demo.app/api/posts/?include=tags,author,comments.author&page[size]=4&page[number]=1'
         });
     });
+
+    test('querying from same instance multiple time should not merge request url', async () => {
+        const post = new Post();
+        post.testApiResponse = {};
+        await post.with(['tags', 'author', 'comments.author']).paginate(4, 1);
+        await post.with(['tags', 'author', 'comments.author']).paginate(4, 1);
+
+        expect(post.testApiRequest).toEqual({
+            method: 'GET',
+            url: 'https://sarala-demo.app/api/posts/?include=tags,author,comments.author&page[size]=4&page[number]=1'
+        });
+    });
 });
