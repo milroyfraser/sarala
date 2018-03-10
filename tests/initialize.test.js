@@ -18,5 +18,4 @@ test('can call overridable methods of initialize model', () => {
     expect(unicorn.computed()).toEqual({});
     expect(unicorn.resourceName()).toEqual('unicorns');
     expect(unicorn.baseUrl()).toEqual('https://sarala-demo.app/api');
-    expect(unicorn.dateFormat()).toEqual('YYYY-MM-DD HH:mm');
 });

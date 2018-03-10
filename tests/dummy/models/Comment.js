@@ -11,7 +11,9 @@ export default class Comment extends Model {
     }
 
     dates () {
-        return ['created_at'];
+        return {
+            created_at: 'YYYY-MM-DD'
+        };
     }
 
     relationships () {

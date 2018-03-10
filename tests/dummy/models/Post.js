@@ -13,7 +13,9 @@ export default class Post extends Model {
     }
 
     dates () {
-        return ['published_at'];
+        return {
+            published_at: 'YYYY-MM-DD HH:mm'
+        };
     }
 
     relationships () {

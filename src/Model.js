@@ -34,10 +34,6 @@ export default class Model {
         return null;
     }
 
-    dateFormat () {
-        return 'YYYY-MM-DD HH:mm';
-    }
-
     async request (config) {
         // to be implemented in base model
     }
@@ -239,7 +235,7 @@ export default class Model {
             model[field] = data[field];
         });
 
-        _.forEach(this.dates(), field => {
+        _.forOwn(this.dates(), (format, field) => {
             model[field] = moment(data[field]);
         });
 
@@ -287,9 +283,9 @@ export default class Model {
             }
         });
 
-        _.forEach(this.dates(), field => {
+        _.forOwn(this.dates(), (format, field) => {
             if (!_.isUndefined(this[field])) {
-                data[field] = this[field].format(this.dateFormat());
+                data[field] = this[field].format(format);
             }
         });
 
