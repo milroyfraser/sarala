@@ -285,7 +285,7 @@ export default class Model {
 
         _.forOwn(this.dates(), (format, field) => {
             if (!_.isUndefined(this[field])) {
-                data[field] = this[field].format(format);
+                data[field] = moment(this[field]).format(format);
             }
         });
 

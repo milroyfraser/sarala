@@ -15,3 +15,9 @@ All notable changes to `sarala` will be documented in this file.
 ### Removed
 - `dataFormat` method has been removed from Model class.
 
+## v0.2.4 - 2018-03-11
+
+### Added
+- Accept `Date` object, `string` or `moment` object as date field value.
+
+

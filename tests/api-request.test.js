@@ -1,3 +1,4 @@
+import moment from 'moment';
 import Post from './dummy/models/Post';
 import Tag from './dummy/models/Tag';
 import {
@@ -19,6 +20,69 @@ describe('api requests', () => {
                     'attributes': {
                         'title': 'Article evident arrived express highest men did boy.',
                         'subtitle': 'Mistress sensible entirely am so. Quick can manor smart money hopes worth too. Comfort produce husband boy her had hearing.',
+                    },
+                    'type': 'posts'
+                }
+            },
+            'method': 'POST',
+            'url': 'https://sarala-demo.app/api/posts/'
+        });
+    });
+
+    test('it accepts moment object as date field value', async () => {
+        const post = new Post();
+        post.title = 'The day I was born.';
+        post.published_at = moment('1989-01-21');
+        await post.save();
+
+        expect(post.testApiRequest).toEqual({
+            'data': {
+                'data': {
+                    'attributes': {
+                        'title': 'The day I was born.',
+                        'published_at': '1989-01-21 00:00',
+                    },
+                    'type': 'posts'
+                }
+            },
+            'method': 'POST',
+            'url': 'https://sarala-demo.app/api/posts/'
+        });
+    });
+
+    test('it accepts string value as date field value', async () => {
+        const post = new Post();
+        post.title = 'The day I was born.';
+        post.published_at = '1989-01-21';
+        await post.save();
+
+        expect(post.testApiRequest).toEqual({
+            'data': {
+                'data': {
+                    'attributes': {
+                        'title': 'The day I was born.',
+                        'published_at': '1989-01-21 00:00',
+                    },
+                    'type': 'posts'
+                }
+            },
+            'method': 'POST',
+            'url': 'https://sarala-demo.app/api/posts/'
+        });
+    });
+
+    test('it accepts Date object as date field value', async () => {
+        const post = new Post();
+        post.title = 'The day I was born.';
+        post.published_at = new Date(1989, 0, 21);
+        await post.save();
+
+        expect(post.testApiRequest).toEqual({
+            'data': {
+                'data': {
+                    'attributes': {
+                        'title': 'The day I was born.',
+                        'published_at': '1989-01-21 00:00',
                     },
                     'type': 'posts'
                 }
