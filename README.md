@@ -1,10 +1,23 @@
-# sarala
+<p align="center"><p align="center"><img src="https://milroy.me/img/sarala-logo.svg" width="200"></p></p>
 
-[![codecov](https://codecov.io/gh/milroyfraser/sarala/branch/master/graph/badge.svg)](https://codecov.io/gh/milroyfraser/sarala) [![npm version](https://badge.fury.io/js/sarala.svg)](https://www.npmjs.com/package/sarala) [![apm](https://img.shields.io/apm/l/vim-mode.svg)](https://github.com/milroyfraser/sarala/blob/master/LICENSE)
+<p align="center">
+    <a href="https://codecov.io/gh/milroyfraser/sarala">
+      <img src="https://codecov.io/gh/milroyfraser/sarala/branch/master/graph/badge.svg" />
+    </a>
+    <a href="https://www.npmjs.com/package/sarala">
+      <img src="https://badge.fury.io/js/sarala.svg" />
+    </a>   
+    <a href="https://github.com/milroyfraser/sarala/blob/master/LICENSE">
+      <img src="https://img.shields.io/apm/l/vim-mode.svg" />
+    </a>     
+</p>
+
+# Sarala JS
 
 > Javascript library to communicate with RESTful API built following JSON API specification. inspired by Laravel’s Eloquent
 
-### [Documentation](https://milroy.me/posts/sarala-laravel-eloquent-like-javascript-orm-to-communicate-with-json-api/1)
+### [API Documentation](https://sarala-io.gitbooks.io/sarala/content/)
+### [Background Story](https://milroy.me/posts/sarala-laravel-eloquent-like-javascript-orm-to-communicate-with-json-api/1)
 
 ## Install
 
@@ -40,9 +53,7 @@ export default class BaseModel extends Model
 ##### app/models/Post.js
 ```javascript
 import Model from './BaseModel';
-import Comment from './Comment';
 import Tag from './Tag';
-import User from './User';
 
 export default class Post extends Model {
     resourceName () {
@@ -53,27 +64,9 @@ export default class Post extends Model {
         return ['title', 'subtitle', 'body', 'slug'];
     }
 
-    dates () {
-        return ['published_at'];
-    }
-
     relationships () {
         return {
-            author: new User(),
-            comments: new Comment(),
             tags: new Tag()
-        };
-    }
-
-    computed () {
-        return {
-            full_date (post) {
-                return post.published_at.format('MMMM Do YYYY');
-            },
-
-            human_date (post) {
-                return post.published_at.fromNow();
-            }
         };
     }
 }
@@ -101,19 +94,9 @@ import Post from './../models/Post';
 
 const post = new Post();
 
-// makes a GET request to https://sarala-demo.app/api/posts/{id}
-const findPost = async (id) => {
-    let post = await post.find(id);
-};
-
 // makes a GET request to https://sarala-demo.app/api/posts
 const fetchAllPosts = async () => {
-    let posts = await post.all();
-};
-
-// makes a GET request to https://sarala-demo.app/api/posts/?page[size]=10&page[number]={page}
-const paginatePosts = async (page) => {
-    let posts = await post.paginate(10, page);
+    let posts = await post.with(['tags']).all();
 };
 ```
 
@@ -135,4 +118,5 @@ tag.save();
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
-## Learn More: [Documentation](https://milroy.me/posts/sarala-laravel-eloquent-like-javascript-orm-to-communicate-with-json-api/1)
+### [API Documentation](https://sarala-io.gitbooks.io/sarala/content/)
+### [Background Story](https://milroy.me/posts/sarala-laravel-eloquent-like-javascript-orm-to-communicate-with-json-api/1)
