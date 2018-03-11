@@ -16,8 +16,7 @@
 
 > Javascript library to communicate with RESTful API built following JSON API specification. inspired by Laravel’s Eloquent
 
-### [API Documentation](https://sarala-io.gitbooks.io/sarala/content/)
-### [Background Story](https://milroy.me/posts/sarala-laravel-eloquent-like-javascript-orm-to-communicate-with-json-api/1)
+### [API Documentation](https://sarala-io.gitbooks.io/sarala/content/) | [Background Story](https://milroy.me/posts/sarala-laravel-eloquent-like-javascript-orm-to-communicate-with-json-api/1)
 
 ## Install
 
@@ -118,5 +117,4 @@ tag.save();
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
-### [API Documentation](https://sarala-io.gitbooks.io/sarala/content/)
-### [Background Story](https://milroy.me/posts/sarala-laravel-eloquent-like-javascript-orm-to-communicate-with-json-api/1)
+### [API Documentation](https://sarala-io.gitbooks.io/sarala/content/) | [Background Story](https://milroy.me/posts/sarala-laravel-eloquent-like-javascript-orm-to-communicate-with-json-api/1)
