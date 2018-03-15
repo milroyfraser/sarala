@@ -195,7 +195,6 @@ export default class Model {
     }
 
     resolveCollection (data) {
-        let thiss = this;
         let resolved = {};
 
         if (data.hasOwnProperty('links')) {
@@ -207,7 +206,7 @@ export default class Model {
         }
 
         resolved.data = _.map(data.data, item => {
-            return thiss.resolveItem(item);
+            return this.resolveItem(item);
         });
 
         return resolved;
@@ -239,8 +238,6 @@ export default class Model {
             model[field] = moment(data[field]);
         });
 
-        const thiss = this;
-
         _.forEach(data.relationships, relationship => {
             let relation = model.relationships()[relationship];
 
@@ -248,7 +245,7 @@ export default class Model {
                 throw new Error(`Sarale: Relationship ${relationship} has not been defined in ${model.constructor.name} model.`);
             }
 
-            if (thiss.isCollection(data[relationship])) {
+            if (this.isCollection(data[relationship])) {
                 model[relationship] = relation.resolveCollection(data[relationship]);
             } else {
                 model[relationship] = relation.resolveItem(data[relationship].data);
@@ -289,20 +286,18 @@ export default class Model {
             }
         });
 
-        let thiss = this;
-
-        _.forEach(thiss.relationships(), (model, relationship) => {
-            if (!_.isUndefined(thiss[relationship])) {
-                if (_.isArray(thiss[relationship].data)) {
+        _.forEach(this.relationships(), (model, relationship) => {
+            if (!_.isUndefined(this[relationship])) {
+                if (_.isArray(this[relationship].data)) {
                     data[relationship] = {
                         data_collection: true,
-                        data: _.map(thiss[relationship].data, relation => {
+                        data: _.map(this[relationship].data, relation => {
                             return relation.data();
                         })
                     };
                 } else {
                     data[relationship] = {
-                        data: thiss[relationship].data()
+                        data: this[relationship].data()
                     };
                 }
             }
