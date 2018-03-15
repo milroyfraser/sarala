@@ -181,7 +181,7 @@ export default class Model {
     // build model
 
     respond (response) {
-        if (! _.isEmpty(response)) {
+        if (!_.isEmpty(response)) {
             let data = this.deserialize(response);
 
             if (this.isCollection(data)) {
@@ -335,5 +335,9 @@ export default class Model {
         if (name === null || !_.isString(name) || name.length === 0) {
             throw new Error(`Sarale: Resource name not defined in ${this.constructor.name} model. Implement resourceName method in the ${this.constructor.name} model to resolve this error.`);
         }
+    }
+
+    clone () {
+        return _.clone(this);
     }
 }

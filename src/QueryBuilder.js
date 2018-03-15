@@ -52,8 +52,8 @@ export default class QueryBuilder {
     }
 
     select (fields) {
-        if (! _.isObject(fields)) {
-            throw new Error(`Sarala: Invalid fields list.`)
+        if (!_.isObject(fields)) {
+            throw new Error(`Sarala: Invalid fields list.`);
         }
 
         _.forOwn(fields, (value, resource) => {
@@ -123,7 +123,7 @@ export default class QueryBuilder {
     }
 
     appendPagination () {
-        if (! _.isEmpty(this.pagination)) {
+        if (!_.isEmpty(this.pagination)) {
             this.appendQuery(`page[size]=${this.pagination.size}&page[number]=${this.pagination.number}`);
         }
     }

@@ -20,4 +20,7 @@ All notable changes to `sarala` will be documented in this file.
 ### Added
 - Accept `Date` object, `string` or `moment` object as date field value.
 
+## v0.2.5 - 2018-03-16
 
+### Added
+- Added the ability to clone an model object by calling `modelObj.clone();`.
