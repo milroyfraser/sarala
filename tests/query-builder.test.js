@@ -160,6 +160,39 @@ describe('query builder', () => {
                 url: 'https://sarala-demo.app/api/posts/?filter[unicorn][published-before]=2018-01-01&filter[unicorn][likes-above]=100'
             });
         });
+
+        test('limit', async () => {
+            const post = new Post();
+            post.testApiResponse = {};
+            await post.limit(10).get();
+
+            expect(post.testApiRequest).toEqual({
+                method: 'GET',
+                url: 'https://sarala-demo.app/api/posts/?filter[limit]=10'
+            });
+        });
+
+        test('offset', async () => {
+            const post = new Post();
+            post.testApiResponse = {};
+            await post.offset(10).get();
+
+            expect(post.testApiRequest).toEqual({
+                method: 'GET',
+                url: 'https://sarala-demo.app/api/posts/?filter[offset]=10'
+            });
+        });
+
+        test('limit and offset', async () => {
+            const post = new Post();
+            post.testApiResponse = {};
+            await post.limit(10).offset(20).get();
+
+            expect(post.testApiRequest).toEqual({
+                method: 'GET',
+                url: 'https://sarala-demo.app/api/posts/?filter[limit]=10&filter[offset]=20'
+            });
+        });
     });
 
     test('chain filters with paginate', async () => {

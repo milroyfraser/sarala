@@ -40,6 +40,14 @@ export default class Model {
 
     // requests
 
+    async get () {
+        const requestConfig = { method: 'GET', url: `${this.resourceUrl()}${this.queryBuilder.getQuery()}` };
+        this.queryBuilder.reset();
+        let response = await this.request(requestConfig);
+
+        return this.respond(response.data);
+    }
+
     async find (id) {
         const requestConfig = { method: 'GET', url: `${this.resourceUrl()}${id}${this.queryBuilder.getQuery()}` };
         this.queryBuilder.reset();
@@ -48,12 +56,8 @@ export default class Model {
         return this.respond(response.data);
     }
 
-    async all () {
-        const requestConfig = { method: 'GET', url: `${this.resourceUrl()}${this.queryBuilder.getQuery()}` };
-        this.queryBuilder.reset();
-        let response = await this.request(requestConfig);
-
-        return this.respond(response.data);
+    all () {
+        return this.get();
     }
 
     async paginate (perPage = 10, page = 1) {
@@ -164,6 +168,14 @@ export default class Model {
 
     filter (filter, group = null) {
         return this.where(filter, null, group);
+    }
+
+    limit (limit) {
+        return this.where('limit', limit);
+    }
+
+    offset (offset) {
+        return this.where('offset', offset);
     }
 
     select (fields) {
