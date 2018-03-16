@@ -24,3 +24,11 @@ All notable changes to `sarala` will be documented in this file.
 
 ### Added
 - Added the ability to clone an model object by calling `modelObj.clone();`.
+
+## v0.3.0 - 2018-03-16
+
+### Fixed
+- [Updated `.clone` to deep clone the model](https://sarala-io.gitbooks.io/sarala/content/helpers/clone.html)
+
+### Added
+- [Added the ability to override the collection object](https://sarala-io.gitbooks.io/sarala/content/helpers/collection-pipeline.html)
