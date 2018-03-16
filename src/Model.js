@@ -205,9 +205,9 @@ export default class Model {
             resolved.meta = data.meta;
         }
 
-        resolved.data = _.map(data.data, item => {
+        resolved.data = this.newCollection(_.map(data.data, item => {
             return this.resolveItem(item);
-        });
+        }));
 
         return resolved;
     }
@@ -333,6 +333,10 @@ export default class Model {
     }
 
     clone () {
-        return _.clone(this);
+        return _.cloneDeep(this);
+    }
+
+    newCollection (data) {
+        return data;
     }
 }
