@@ -32,3 +32,8 @@ All notable changes to `sarala` will be documented in this file.
 
 ### Added
 - [Added the ability to override the collection object](https://sarala-io.gitbooks.io/sarala/content/helpers/collection-pipeline.html)
+
+## v0.3.1 - 2018-03-17
+
+### Added
+- [Added `.limit(10)` and `.offset(20)`.](https://sarala-io.gitbooks.io/sarala/content/fetching-data/filtering.html)
