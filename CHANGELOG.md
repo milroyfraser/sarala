@@ -37,3 +37,8 @@ All notable changes to `sarala` will be documented in this file.
 
 ### Added
 - [Added `.limit(10)` and `.offset(20)`.](https://sarala-io.gitbooks.io/sarala/content/fetching-data/filtering.html)
+
+## v0.3.2 - 2018-04-05
+
+### Fixed
+- [Response parser bug fix #3](https://github.com/milroyfraser/sarala/issues/3) : [f48eeb0](https://github.com/milroyfraser/sarala/commit/f48eeb05f98d052b6278261b56bc6dbf8702888b)
