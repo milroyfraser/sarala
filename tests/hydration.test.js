@@ -2,6 +2,7 @@ import Post from './dummy/models/Post';
 import {
     Post as ApiPost,
     PostWithAllNesterRelations as ApiPostWithAllNesterRelations,
+    PostWithRelationalLinks as ApiPostWithRelationalLinks,
     PaginatedPostsList as ApiPaginatedPostsList,
 } from './dummy/data/json-api-responce';
 import User from './dummy/models/User';
@@ -62,6 +63,24 @@ describe('it hydrates', () => {
         expect(result.comments.data[1]).toBeInstanceOf(Comment);
         expect(result.comments.data[0].author).toBeInstanceOf(User);
         expect(result.comments.data[1].author).toBeInstanceOf(User);
+    });
+
+    test('single object with relations without data', async () => {
+        const post = new Post();
+        post.testApiResponse = ApiPostWithRelationalLinks;
+
+        let result = await post.find(1);
+
+        expect(result).toBeInstanceOf(Post);
+        expect(result.id).toEqual(ApiPost.data.id);
+        expect(result.type).toEqual(ApiPost.data.type);
+        expect(result.title).toEqual(ApiPost.data.attributes.title);
+        expect(result.subtitle).toEqual(ApiPost.data.attributes.subtitle);
+        expect(result.body).toEqual(ApiPost.data.attributes.body);
+        expect(result.published_at.format('YYYY-MM-DD')).toEqual(ApiPost.data.attributes.published_at);
+
+        expect(result.author).toBeUndefined();
+        expect(result.tags).toBeUndefined();
     });
 
     test('should throw an error when relation ship is not defined', async () => {

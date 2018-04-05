@@ -259,7 +259,7 @@ export default class Model {
 
             if (this.isCollection(data[relationship])) {
                 model[relationship] = relation.resolveCollection(data[relationship]);
-            } else {
+            } else if (data[relationship].data) {
                 model[relationship] = relation.resolveItem(data[relationship].data);
             }
         });
