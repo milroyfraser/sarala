@@ -34,8 +34,8 @@
   },
   "homepage": "https://github.com/milroyfraser/sarala#readme",
   "dependencies": {
-    "lodash": "^4.17.5",
-    "moment": "^2.22.0",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.1",
     "sarala-json-api-data-formatter": "^1.0.3"
   },
   "devDependencies": {
@@ -44,13 +44,13 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-latest": "^6.24.1",
-    "codecov": "^3.0.0",
+    "codecov": "^3.0.1",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
-    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-standard": "^3.0.1",
+    "eslint-plugin-standard": "^3.1.0",
     "jest": "^22.4.3"
   }
 }
