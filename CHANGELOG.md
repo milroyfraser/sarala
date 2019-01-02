@@ -42,3 +42,6 @@ All notable changes to `sarala` will be documented in this file.
 
 ### Fixed
 - [Response parser bug fix #3](https://github.com/milroyfraser/sarala/issues/3) : [f48eeb0](https://github.com/milroyfraser/sarala/commit/f48eeb05f98d052b6278261b56bc6dbf8702888b)
+
+## v0.3.4 - 2019-01-02
+- security update
