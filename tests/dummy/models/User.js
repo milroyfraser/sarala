@@ -1,18 +1,18 @@
-import Model from './BaseModel';
-import Post from './Post';
+import Model from './BaseModel'
+import Post from './Post'
 
 export default class User extends Model {
     resourceName () {
-        return 'users';
+        return 'users'
     }
 
     fields () {
-        return ['name', 'email'];
+        return ['name', 'email']
     }
 
     relationships () {
         return {
             posts: new Post()
-        };
+        }
     }
 }

@@ -1,220 +1,220 @@
-import Post from './dummy/models/Post';
+import Post from './dummy/models/Post'
 
 describe('query builder', () => {
     test('all', async () => {
-        const post = new Post();
-        post.testApiResponse = {};
-        await post.all();
+        const post = new Post()
+        post.testApiResponse = {}
+        await post.all()
 
         expect(post.testApiRequest).toEqual({
             method: 'GET',
             url: 'https://sarala-demo.app/api/posts/'
-        });
-    });
+        })
+    })
 
     test('find', async () => {
-        const post = new Post();
-        post.testApiResponse = {};
-        await post.find(1);
+        const post = new Post()
+        post.testApiResponse = {}
+        await post.find(1)
 
         expect(post.testApiRequest).toEqual({
             method: 'GET',
             url: 'https://sarala-demo.app/api/posts/1'
-        });
-    });
+        })
+    })
 
     test('with', async () => {
-        const post = new Post();
-        post.testApiResponse = {};
-        await post.with(['tags', 'author', 'comments.author']).find(1);
+        const post = new Post()
+        post.testApiResponse = {}
+        await post.with(['tags', 'author', 'comments.author']).find(1)
 
         expect(post.testApiRequest).toEqual({
             method: 'GET',
             url: 'https://sarala-demo.app/api/posts/1?include=tags,author,comments.author'
-        });
-    });
+        })
+    })
 
     test('paginate', async () => {
-        const post = new Post();
-        post.testApiResponse = {};
-        await post.paginate(4, 1);
+        const post = new Post()
+        post.testApiResponse = {}
+        await post.paginate(4, 2)
 
         expect(post.testApiRequest).toEqual({
             method: 'GET',
-            url: 'https://sarala-demo.app/api/posts/?page[size]=4&page[number]=1'
-        });
-    });
+            url: 'https://sarala-demo.app/api/posts/?page[size]=4&page[number]=2'
+        })
+    })
 
     describe('sorting', () => {
         test('orderBy', async () => {
-            const post = new Post();
-            post.testApiResponse = {};
-            await post.orderBy('published_at').all();
+            const post = new Post()
+            post.testApiResponse = {}
+            await post.orderBy('published_at').all()
 
             expect(post.testApiRequest).toEqual({
                 method: 'GET',
                 url: 'https://sarala-demo.app/api/posts/?sort=published_at'
-            });
-        });
+            })
+        })
 
         test('orderByDesc', async () => {
-            const post = new Post();
-            post.testApiResponse = {};
-            await post.orderByDesc('published_at').all();
+            const post = new Post()
+            post.testApiResponse = {}
+            await post.orderByDesc('published_at').all()
 
             expect(post.testApiRequest).toEqual({
                 method: 'GET',
                 url: 'https://sarala-demo.app/api/posts/?sort=-published_at'
-            });
-        });
+            })
+        })
 
         test('chain sort methods', async () => {
-            const post = new Post();
-            post.testApiResponse = {};
-            await post.orderBy('author.name').orderByDesc('published_at').all();
+            const post = new Post()
+            post.testApiResponse = {}
+            await post.orderBy('author.name').orderByDesc('published_at').all()
 
             expect(post.testApiRequest).toEqual({
                 method: 'GET',
                 url: 'https://sarala-demo.app/api/posts/?sort=author.name,-published_at'
-            });
-        });
+            })
+        })
 
         test('it throws error for invalid sort directions', () => {
             const doDumb = () => {
-                const post = new Post();
-                post.orderBy('author.name', 'crap');
-            };
+                const post = new Post()
+                post.orderBy('author.name', 'crap')
+            }
 
-            expect(doDumb).toThrow('Sarale: Invalid sort direction: "crap". Allowed only "asc" or "desc".');
-        });
-    });
+            expect(doDumb).toThrow('Sarale: Invalid sort direction: "crap". Allowed only "asc" or "desc".')
+        })
+    })
 
     describe('sparse fields', () => {
         test('model fields as an array', async () => {
-            const post = new Post();
-            post.testApiResponse = {};
-            await post.select(['title', 'subtitle']).all();
+            const post = new Post()
+            post.testApiResponse = {}
+            await post.select(['title', 'subtitle']).all()
 
             expect(post.testApiRequest).toEqual({
                 method: 'GET',
                 url: 'https://sarala-demo.app/api/posts/?fields[posts]=title,subtitle'
-            });
-        });
+            })
+        })
 
         test('relationships fields as an object', async () => {
-            const post = new Post();
-            post.testApiResponse = {};
+            const post = new Post()
+            post.testApiResponse = {}
             await post.select({
                 posts: ['title', 'subtitle'],
                 tags: ['name']
-            }).all();
+            }).all()
 
             expect(post.testApiRequest).toEqual({
                 method: 'GET',
                 url: 'https://sarala-demo.app/api/posts/?fields[posts]=title,subtitle&fields[tags]=name'
-            });
-        });
+            })
+        })
 
         test('it throws error for invalid fields', () => {
             const doDumb = () => {
-                const post = new Post();
-                post.select('crap');
-            };
+                const post = new Post()
+                post.select('crap')
+            }
 
-            expect(doDumb).toThrow('Sarala: Invalid fields list.');
-        });
-    });
+            expect(doDumb).toThrow('Sarala: Invalid fields list.')
+        })
+    })
 
     describe('filtering', () => {
         test('filter', async () => {
-            const post = new Post();
-            post.testApiResponse = {};
-            await post.filter('archived').all();
+            const post = new Post()
+            post.testApiResponse = {}
+            await post.filter('archived').all()
 
             expect(post.testApiRequest).toEqual({
                 method: 'GET',
                 url: 'https://sarala-demo.app/api/posts/?filter[archived]'
-            });
-        });
+            })
+        })
 
         test('where', async () => {
-            const post = new Post();
-            post.testApiResponse = {};
-            await post.where('published-before', '2018-01-01').all();
+            const post = new Post()
+            post.testApiResponse = {}
+            await post.where('published-before', '2018-01-01').all()
 
             expect(post.testApiRequest).toEqual({
                 method: 'GET',
                 url: 'https://sarala-demo.app/api/posts/?filter[published-before]=2018-01-01'
-            });
-        });
+            })
+        })
 
         test('where group', async () => {
-            const post = new Post();
-            post.testApiResponse = {};
+            const post = new Post()
+            post.testApiResponse = {}
             await post.where('published-before', '2018-01-01', 'unicorn')
                 .where('likes-above', 100, 'unicorn')
-                .all();
+                .all()
 
             expect(post.testApiRequest).toEqual({
                 method: 'GET',
                 url: 'https://sarala-demo.app/api/posts/?filter[unicorn][published-before]=2018-01-01&filter[unicorn][likes-above]=100'
-            });
-        });
+            })
+        })
 
         test('limit', async () => {
-            const post = new Post();
-            post.testApiResponse = {};
-            await post.limit(10).get();
+            const post = new Post()
+            post.testApiResponse = {}
+            await post.limit(10).get()
 
             expect(post.testApiRequest).toEqual({
                 method: 'GET',
                 url: 'https://sarala-demo.app/api/posts/?filter[limit]=10'
-            });
-        });
+            })
+        })
 
         test('offset', async () => {
-            const post = new Post();
-            post.testApiResponse = {};
-            await post.offset(10).get();
+            const post = new Post()
+            post.testApiResponse = {}
+            await post.offset(10).get()
 
             expect(post.testApiRequest).toEqual({
                 method: 'GET',
                 url: 'https://sarala-demo.app/api/posts/?filter[offset]=10'
-            });
-        });
+            })
+        })
 
         test('limit and offset', async () => {
-            const post = new Post();
-            post.testApiResponse = {};
-            await post.limit(10).offset(20).get();
+            const post = new Post()
+            post.testApiResponse = {}
+            await post.limit(10).offset(20).get()
 
             expect(post.testApiRequest).toEqual({
                 method: 'GET',
                 url: 'https://sarala-demo.app/api/posts/?filter[limit]=10&filter[offset]=20'
-            });
-        });
-    });
+            })
+        })
+    })
 
     test('chain filters with paginate', async () => {
-        const post = new Post();
-        post.testApiResponse = {};
-        await post.with(['tags', 'author', 'comments.author']).paginate(4, 1);
+        const post = new Post()
+        post.testApiResponse = {}
+        await post.with(['tags', 'author', 'comments.author']).paginate(4, 1)
 
         expect(post.testApiRequest).toEqual({
             method: 'GET',
             url: 'https://sarala-demo.app/api/posts/?include=tags,author,comments.author&page[size]=4&page[number]=1'
-        });
-    });
+        })
+    })
 
     test('querying from same instance multiple time should not merge request url', async () => {
-        const post = new Post();
-        post.testApiResponse = {};
-        await post.with(['tags', 'author', 'comments.author']).paginate(4, 1);
-        await post.with(['tags', 'author', 'comments.author']).paginate(4, 1);
+        const post = new Post()
+        post.testApiResponse = {}
+        await post.with(['tags', 'author', 'comments.author']).paginate(4, 1)
+        await post.with(['tags', 'author', 'comments.author']).paginate(4, 1)
 
         expect(post.testApiRequest).toEqual({
             method: 'GET',
             url: 'https://sarala-demo.app/api/posts/?include=tags,author,comments.author&page[size]=4&page[number]=1'
-        });
-    });
-});
+        })
+    })
+})

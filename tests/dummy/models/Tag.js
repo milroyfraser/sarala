@@ -1,11 +1,11 @@
-import Model from './BaseModel';
+import Model from './BaseModel'
 
 export default class Tag extends Model {
     resourceName () {
-        return 'tags';
+        return 'tags'
     }
 
     fields () {
-        return ['name'];
+        return ['name']
     }
 }

@@ -16,7 +16,7 @@ export const Post = {
             "copyright": "Copyright 2018 Example Corp."
         }
     }
-};
+}
 
 export const Tag = {
     "data": {
@@ -29,7 +29,7 @@ export const Tag = {
             "self": "https:\/\/sarala-demo.app\/api\/tags\/1"
         }
     }
-};
+}
 
 export const PostWithAllNesterRelations = {
     "data": {
@@ -191,7 +191,7 @@ export const PostWithAllNesterRelations = {
             }
         }
     ]
-};
+}
 
 export const PostWithRelationalLinks = {
     "data": {
@@ -222,7 +222,7 @@ export const PostWithRelationalLinks = {
             }
         }
     }
-};
+}
 
 export const PaginatedPostsList = {
     "data": [
@@ -298,7 +298,7 @@ export const PaginatedPostsList = {
         "next": "https:\/\/sarala-demo.app\/api\/posts?=2",
         "last": "https:\/\/sarala-demo.app\/api\/posts?=3"
     }
-};
+}
 
 export const PaginatedPostsListWithAllNesterRelations = {
     "data": [
@@ -1108,4 +1108,4 @@ export const PaginatedPostsListWithAllNesterRelations = {
         "next": "https:\/\/sarala-demo.app\/api\/posts?=2",
         "last": "https:\/\/sarala-demo.app\/api\/posts?=3"
     }
-};
+}
