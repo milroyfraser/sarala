@@ -40,10 +40,13 @@ export default class Model {
 
     // requests
 
-    async get () {
+    async makeFetchRequest (url) {
         const requestConfig = {
             method: 'GET',
-            url: `${this.resourceUrl()}${this.queryBuilder.getQuery()}`
+            url,
+            headers: {
+                'Accept': 'application/vnd.api+json'
+            }
         }
         this.queryBuilder.reset()
         let response = await this.request(requestConfig)
@@ -51,15 +54,12 @@ export default class Model {
         return this.respond(response.data)
     }
 
-    async find (id) {
-        const requestConfig = {
-            method: 'GET',
-            url: `${this.resourceUrl()}${id}${this.queryBuilder.getQuery()}`
-        }
-        this.queryBuilder.reset()
-        let response = await this.request(requestConfig)
+    async get () {
+        return this.makeFetchRequest(`${this.resourceUrl()}${this.queryBuilder.getQuery()}`)
+    }
 
-        return this.respond(response.data)
+    async find (id) {
+        return this.makeFetchRequest(`${this.resourceUrl()}${id}${this.queryBuilder.getQuery()}`)
     }
 
     all () {
@@ -68,14 +68,8 @@ export default class Model {
 
     async paginate (perPage = 10, page = 1) {
         this.queryBuilder.paginate(perPage, page)
-        const requestConfig = {
-            method: 'GET',
-            url: `${this.resourceUrl()}${this.queryBuilder.getQuery()}`
-        }
-        this.queryBuilder.reset()
-        let response = await this.request(requestConfig)
 
-        return this.respond(response.data)
+        return this.makeFetchRequest(`${this.resourceUrl()}${this.queryBuilder.getQuery()}`)
     }
 
     async save () {
