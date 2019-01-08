@@ -83,3 +83,4 @@ fabric.properties
 /build/
 /coverage/
 /docs/.vuepress/dist/
+package-lock.json
