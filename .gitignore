@@ -82,3 +82,4 @@ fabric.properties
 /.idea/
 /build/
 /coverage/
+/docs/.vuepress/dist/

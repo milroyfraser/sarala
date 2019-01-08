@@ -9,7 +9,9 @@
     "tw": "jest --watch",
     "cc": "jest --coverage",
     "cs": "./node_modules/.bin/eslint src/*",
-    "csf": "./node_modules/.bin/eslint src/* --fix"
+    "csf": "./node_modules/.bin/eslint src/* --fix",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
   "jest": {
     "coverageDirectory": "./coverage/",
