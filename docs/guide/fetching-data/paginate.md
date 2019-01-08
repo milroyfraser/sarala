@@ -13,4 +13,5 @@ let result = await post.paginate(10, 2)
 
 ```
 GET /posts?page[size]=10&page[number]=2
+Accept: application/vnd.api+json
 ```

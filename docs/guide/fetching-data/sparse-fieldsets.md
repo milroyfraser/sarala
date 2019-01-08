@@ -15,6 +15,7 @@ let result = await post.select(['title', 'subtitle']).find(8)
 
 ```
 GET /posts?fields[posts]=title,subtitle
+Accept: application/vnd.api+json
 ```
 
 #### Specify fields of root and related resources
@@ -31,4 +32,5 @@ let result = await post.select({
 
 ```
 GET /posts?include=tags&fields[posts]=title,subtitle&fields[tags]=name
+Accept: application/vnd.api+json
 ```

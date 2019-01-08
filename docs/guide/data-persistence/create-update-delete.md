@@ -16,6 +16,8 @@ post.save() // or post.create()
 
 ```
 POST /posts
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json
 
 {
     data: {
@@ -41,6 +43,8 @@ tagTen.save() // or tag.update()
 
 ```
 PUT /tags/10
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json
 
 {
     data: {
@@ -64,4 +68,6 @@ tagTen.delete()
 
 ```
 DELETE /tags/10
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json
 ```
