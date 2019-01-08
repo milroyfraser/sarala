@@ -17,6 +17,8 @@ await postOne.attach(tagTen)
 
 ```
 POST /posts/1/tags/10
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json
 ```
 
 #### Created to related resource with additional (pivot) data
@@ -32,6 +34,8 @@ await postOne.attach(tagTen, { priority: 'low' })
 
 ```
 POST /posts/1/tags/10
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json
 
 {
     data: {
@@ -58,6 +62,8 @@ await postOne.detach(tagTen)
 
 ```
 DELETE /posts/1/tags/10
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json
 ```
 
 #### Syncing related resource
@@ -76,6 +82,8 @@ await postOne.sync('tags')
 
 ```
 PUT /posts/1/tags
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json
 
 {
   'data': [

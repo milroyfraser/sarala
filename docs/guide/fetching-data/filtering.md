@@ -15,6 +15,7 @@ let result = await post.orderBy('published_at').all()
 
 ```
 GET /posts?filter[archived]
+Accept: application/vnd.api+json
 ```
 
 #### Apply parameterised filters
@@ -28,6 +29,7 @@ let result = await post.where('published-before', '2018-01-01').all()
 
 ```
 GET /posts?filter[published-before]=2018-01-01
+Accept: application/vnd.api+json
 ```
 
 #### Filter Groups
@@ -45,4 +47,5 @@ let result = await post.where('published-before', '2018-01-01', 'unicorn')
 
 ```
 GET /posts?filter[unicorn][published-before]=2018-01-01&filter[unicorn][likes-above]=100
+Accept: application/vnd.api+json
 ```
