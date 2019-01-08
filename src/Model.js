@@ -54,11 +54,11 @@ export default class Model {
         return this.respond(response.data)
     }
 
-    async get () {
+    get () {
         return this.makeFetchRequest(`${this.resourceUrl()}${this.queryBuilder.getQuery()}`)
     }
 
-    async find (id) {
+    find (id) {
         return this.makeFetchRequest(`${this.resourceUrl()}${id}${this.queryBuilder.getQuery()}`)
     }
 
@@ -66,13 +66,24 @@ export default class Model {
         return this.get()
     }
 
-    async paginate (perPage = 10, page = 1) {
+    paginate (perPage = 10, page = 1) {
         this.queryBuilder.paginate(perPage, page)
 
         return this.makeFetchRequest(`${this.resourceUrl()}${this.queryBuilder.getQuery()}`)
     }
 
-    async save () {
+    async makePersistRequest (config) {
+        config.headers = {
+            'Content-Type': 'application/vnd.api+json',
+            'Accept': 'application/vnd.api+json'
+        }
+
+        let response = await this.request(config)
+
+        return this.respond(response.data)
+    }
+
+    save () {
         if (this.hasOwnProperty('id')) {
             return this.update()
         }
@@ -80,36 +91,30 @@ export default class Model {
         return this.create()
     }
 
-    async create () {
-        let response = await this.request({
+    create () {
+        return this.makePersistRequest({
             url: this.resourceUrl(),
             method: 'POST',
             data: this.serialize(this.data())
         })
-
-        return this.respond(response.data)
     }
 
-    async update () {
-        let response = await this.request({
+    update () {
+        return this.makePersistRequest({
             url: this.links.self,
             method: 'PUT',
             data: this.serialize(this.data())
         })
-
-        return this.respond(response.data)
     }
 
-    async delete () {
-        let response = this.request({
+    delete () {
+        return this.makePersistRequest({
             url: this.links.self,
             method: 'DELETE'
         })
-
-        return this.respond(response.data)
     }
 
-    async attach (model, data = null) {
+    attach (model, data = null) {
         let config = {
             url: `${this.links.self}/${model.type}/${model.id}`,
             method: 'POST'
@@ -119,30 +124,24 @@ export default class Model {
             config.data = data
         }
 
-        let response = await this.request(config)
-
-        return this.respond(response.data)
+        return this.makePersistRequest(config)
     }
 
-    async detach (model) {
-        let response = await this.request({
+    detach (model) {
+        return this.makePersistRequest({
             url: `${this.links.self}/${model.type}/${model.id}`,
             method: 'DELETE'
         })
-
-        return this.respond(response.data)
     }
 
-    async sync (relationship) {
+    sync (relationship) {
         const data = this.serialize(this.data())
 
-        let respond = await this.request({
+        return this.makePersistRequest({
             url: `${this.links.self}/${relationship}`,
             method: 'PUT',
             data: data.data.relationships[relationship]
         })
-
-        return this.respond(respond.data)
     }
 
     // modify query string
