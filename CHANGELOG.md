@@ -45,3 +45,10 @@ All notable changes to `sarala` will be documented in this file.
 
 ## v0.3.4 - 2019-01-02
 - security update
+
+## v0.3.5, v0.3.6, v0.3.7 - 2019-01-09
+- added api docs
+- shit happens: fixed npm issues
+
+## v0.3.8 - 2019-01-09
+- Introduced headers preparation [#6](https://github.com/milroyfraser/sarala/pull/6)
