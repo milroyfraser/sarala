@@ -15,17 +15,21 @@ describe('api requests', () => {
         await post.save()
 
         expect(post.testApiRequest).toEqual({
-            'data': {
-                'data': {
-                    'attributes': {
-                        'title': 'Article evident arrived express highest men did boy.',
-                        'subtitle': 'Mistress sensible entirely am so. Quick can manor smart money hopes worth too. Comfort produce husband boy her had hearing.',
+            data: {
+                data: {
+                    attributes: {
+                        title: 'Article evident arrived express highest men did boy.',
+                        subtitle: 'Mistress sensible entirely am so. Quick can manor smart money hopes worth too. Comfort produce husband boy her had hearing.',
                     },
-                    'type': 'posts'
+                    type: 'posts'
                 }
             },
-            'method': 'POST',
-            'url': 'https://sarala-demo.app/api/posts/'
+            method: 'POST',
+            url: 'https://sarala-demo.app/api/posts/',
+            headers: {
+                'Content-Type': 'application/vnd.api+json',
+                'Accept': 'application/vnd.api+json'
+            }
         })
     })
 
@@ -36,17 +40,21 @@ describe('api requests', () => {
         await post.save()
 
         expect(post.testApiRequest).toEqual({
-            'data': {
-                'data': {
-                    'attributes': {
-                        'title': 'The day I was born.',
-                        'published_at': '1989-01-21 00:00',
+            data: {
+                data: {
+                    attributes: {
+                        title: 'The day I was born.',
+                        published_at: '1989-01-21 00:00'
                     },
-                    'type': 'posts'
+                    type: 'posts'
                 }
             },
-            'method': 'POST',
-            'url': 'https://sarala-demo.app/api/posts/'
+            method: 'POST',
+            url: 'https://sarala-demo.app/api/posts/',
+            headers: {
+                'Content-Type': 'application/vnd.api+json',
+                'Accept': 'application/vnd.api+json'
+            }
         })
     })
 
@@ -57,17 +65,21 @@ describe('api requests', () => {
         await post.save()
 
         expect(post.testApiRequest).toEqual({
-            'data': {
-                'data': {
-                    'attributes': {
-                        'title': 'The day I was born.',
-                        'published_at': '1989-01-21 00:00',
+            data: {
+                data: {
+                    attributes: {
+                        title: 'The day I was born.',
+                        published_at: '1989-01-21 00:00'
                     },
-                    'type': 'posts'
+                    type: 'posts'
                 }
             },
-            'method': 'POST',
-            'url': 'https://sarala-demo.app/api/posts/'
+            method: 'POST',
+            url: 'https://sarala-demo.app/api/posts/',
+            headers: {
+                'Content-Type': 'application/vnd.api+json',
+                'Accept': 'application/vnd.api+json'
+            }
         })
     })
 
@@ -78,17 +90,21 @@ describe('api requests', () => {
         await post.save()
 
         expect(post.testApiRequest).toEqual({
-            'data': {
-                'data': {
-                    'attributes': {
-                        'title': 'The day I was born.',
-                        'published_at': '1989-01-21 00:00',
+            data: {
+                data: {
+                    attributes: {
+                        title: 'The day I was born.',
+                        published_at: '1989-01-21 00:00'
                     },
-                    'type': 'posts'
+                    type: 'posts'
                 }
             },
-            'method': 'POST',
-            'url': 'https://sarala-demo.app/api/posts/'
+            method: 'POST',
+            url: 'https://sarala-demo.app/api/posts/',
+            headers: {
+                'Content-Type': 'application/vnd.api+json',
+                'Accept': 'application/vnd.api+json'
+            }
         })
     })
 
@@ -104,21 +120,25 @@ describe('api requests', () => {
         await result.save()
 
         expect(result.testApiRequest).toEqual({
-            'data': {
-                'data': {
+            data: {
+                data: {
                     'id': '1',
-                    'type': 'posts',
-                    'attributes': {
+                    type: 'posts',
+                    attributes: {
                         'slug': 'voluptates-laborum-non-voluptatem-ducimus-veniam-et',
-                        'title': 'Article evident arrived express highest men did boy.',
-                        'subtitle': 'Mistress sensible entirely am so. Quick can manor smart money hopes worth too. Comfort produce husband boy her had hearing.',
+                        title: 'Article evident arrived express highest men did boy.',
+                        subtitle: 'Mistress sensible entirely am so. Quick can manor smart money hopes worth too. Comfort produce husband boy her had hearing.',
                         'body': 'Est quod itaque suscipit quidem dolor dolores velit. Nihil voluptas placeat ex consequatur quasi.\n\nEst nulla cupiditate ad beatae rerum veritatis vel. Quia ut doloribus consequatur porro. Eligendi sit et dignissimos qui voluptatem magnam mollitia labore.\n\nLibero saepe praesentium et sed. Exercitationem error rerum sit inventore provident laborum. Fuga pariatur dolor reiciendis. Quibusdam corrupti commodi ut quo non laboriosam quia. Nihil sit iste sit optio voluptas repellendus exercitationem.',
-                        'published_at': '2018-01-25 00:00'
+                        published_at: '2018-01-25 00:00'
                     }
                 }
             },
-            'method': 'PUT',
-            'url': 'https://sarala-demo.app/api/posts/1'
+            method: 'PUT',
+            url: 'https://sarala-demo.app/api/posts/1',
+            headers: {
+                'Content-Type': 'application/vnd.api+json',
+                'Accept': 'application/vnd.api+json'
+            }
         })
     })
 
@@ -130,8 +150,12 @@ describe('api requests', () => {
         await result.delete()
 
         expect(result.testApiRequest).toEqual({
-            'method': 'DELETE',
-            'url': 'https://sarala-demo.app/api/posts/1'
+            method: 'DELETE',
+            url: 'https://sarala-demo.app/api/posts/1',
+            headers: {
+                'Content-Type': 'application/vnd.api+json',
+                'Accept': 'application/vnd.api+json'
+            }
         })
     })
 
@@ -147,8 +171,12 @@ describe('api requests', () => {
         await postResult.attach(tagResult)
 
         expect(postResult.testApiRequest).toEqual({
-            'method': 'POST',
-            'url': 'https://sarala-demo.app/api/posts/1/tags/5'
+            method: 'POST',
+            url: 'https://sarala-demo.app/api/posts/1/tags/5',
+            headers: {
+                'Content-Type': 'application/vnd.api+json',
+                'Accept': 'application/vnd.api+json'
+            }
         })
     })
 
@@ -164,9 +192,13 @@ describe('api requests', () => {
         await postResult.attach(tagResult, { foo: 'bar', baz: 100 })
 
         expect(postResult.testApiRequest).toEqual({
-            'data': { 'baz': 100, 'foo': 'bar' },
-            'method': 'POST',
-            'url': 'https://sarala-demo.app/api/posts/1/tags/5'
+            data: { 'baz': 100, 'foo': 'bar' },
+            method: 'POST',
+            url: 'https://sarala-demo.app/api/posts/1/tags/5',
+            headers: {
+                'Content-Type': 'application/vnd.api+json',
+                'Accept': 'application/vnd.api+json'
+            }
         })
     })
 
@@ -182,8 +214,12 @@ describe('api requests', () => {
         await postResult.detach(tagResult)
 
         expect(postResult.testApiRequest).toEqual({
-            'method': 'DELETE',
-            'url': 'https://sarala-demo.app/api/posts/1/tags/5'
+            method: 'DELETE',
+            url: 'https://sarala-demo.app/api/posts/1/tags/5',
+            headers: {
+                'Content-Type': 'application/vnd.api+json',
+                'Accept': 'application/vnd.api+json'
+            }
         })
     })
 
@@ -195,20 +231,24 @@ describe('api requests', () => {
         await postResult.sync('tags')
 
         expect(postResult.testApiRequest).toEqual({
-            'data': {
-                'data': [
+            data: {
+                data: [
                     {
                         'id': '1',
-                        'type': 'tags'
+                        type: 'tags'
                     },
                     {
                         'id': '15',
-                        'type': 'tags'
+                        type: 'tags'
                     }
                 ]
             },
-            'method': 'PUT',
-            'url': 'https://sarala-demo.app/api/posts/1/tags'
+            method: 'PUT',
+            url: 'https://sarala-demo.app/api/posts/1/tags',
+            headers: {
+                'Content-Type': 'application/vnd.api+json',
+                'Accept': 'application/vnd.api+json'
+            }
         })
     })
 })

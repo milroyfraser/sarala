@@ -8,7 +8,10 @@ describe('query builder', () => {
 
         expect(post.testApiRequest).toEqual({
             method: 'GET',
-            url: 'https://sarala-demo.app/api/posts/'
+            url: 'https://sarala-demo.app/api/posts/',
+            headers: {
+                'Accept': 'application/vnd.api+json'
+            }
         })
     })
 
@@ -19,7 +22,10 @@ describe('query builder', () => {
 
         expect(post.testApiRequest).toEqual({
             method: 'GET',
-            url: 'https://sarala-demo.app/api/posts/1'
+            url: 'https://sarala-demo.app/api/posts/1',
+            headers: {
+                'Accept': 'application/vnd.api+json'
+            }
         })
     })
 
@@ -30,7 +36,10 @@ describe('query builder', () => {
 
         expect(post.testApiRequest).toEqual({
             method: 'GET',
-            url: 'https://sarala-demo.app/api/posts/1?include=tags,author,comments.author'
+            url: 'https://sarala-demo.app/api/posts/1?include=tags,author,comments.author',
+            headers: {
+                'Accept': 'application/vnd.api+json'
+            }
         })
     })
 
@@ -41,7 +50,10 @@ describe('query builder', () => {
 
         expect(post.testApiRequest).toEqual({
             method: 'GET',
-            url: 'https://sarala-demo.app/api/posts/?page[size]=4&page[number]=2'
+            url: 'https://sarala-demo.app/api/posts/?page[size]=4&page[number]=2',
+            headers: {
+                'Accept': 'application/vnd.api+json'
+            }
         })
     })
 
@@ -53,7 +65,10 @@ describe('query builder', () => {
 
             expect(post.testApiRequest).toEqual({
                 method: 'GET',
-                url: 'https://sarala-demo.app/api/posts/?sort=published_at'
+                url: 'https://sarala-demo.app/api/posts/?sort=published_at',
+                headers: {
+                    'Accept': 'application/vnd.api+json'
+                }
             })
         })
 
@@ -64,7 +79,10 @@ describe('query builder', () => {
 
             expect(post.testApiRequest).toEqual({
                 method: 'GET',
-                url: 'https://sarala-demo.app/api/posts/?sort=-published_at'
+                url: 'https://sarala-demo.app/api/posts/?sort=-published_at',
+                headers: {
+                    'Accept': 'application/vnd.api+json'
+                }
             })
         })
 
@@ -75,7 +93,10 @@ describe('query builder', () => {
 
             expect(post.testApiRequest).toEqual({
                 method: 'GET',
-                url: 'https://sarala-demo.app/api/posts/?sort=author.name,-published_at'
+                url: 'https://sarala-demo.app/api/posts/?sort=author.name,-published_at',
+                headers: {
+                    'Accept': 'application/vnd.api+json'
+                }
             })
         })
 
@@ -97,7 +118,10 @@ describe('query builder', () => {
 
             expect(post.testApiRequest).toEqual({
                 method: 'GET',
-                url: 'https://sarala-demo.app/api/posts/?fields[posts]=title,subtitle'
+                url: 'https://sarala-demo.app/api/posts/?fields[posts]=title,subtitle',
+                headers: {
+                    'Accept': 'application/vnd.api+json'
+                }
             })
         })
 
@@ -111,7 +135,10 @@ describe('query builder', () => {
 
             expect(post.testApiRequest).toEqual({
                 method: 'GET',
-                url: 'https://sarala-demo.app/api/posts/?fields[posts]=title,subtitle&fields[tags]=name'
+                url: 'https://sarala-demo.app/api/posts/?fields[posts]=title,subtitle&fields[tags]=name',
+                headers: {
+                    'Accept': 'application/vnd.api+json'
+                }
             })
         })
 
@@ -133,7 +160,10 @@ describe('query builder', () => {
 
             expect(post.testApiRequest).toEqual({
                 method: 'GET',
-                url: 'https://sarala-demo.app/api/posts/?filter[archived]'
+                url: 'https://sarala-demo.app/api/posts/?filter[archived]',
+                headers: {
+                    'Accept': 'application/vnd.api+json'
+                }
             })
         })
 
@@ -144,7 +174,10 @@ describe('query builder', () => {
 
             expect(post.testApiRequest).toEqual({
                 method: 'GET',
-                url: 'https://sarala-demo.app/api/posts/?filter[published-before]=2018-01-01'
+                url: 'https://sarala-demo.app/api/posts/?filter[published-before]=2018-01-01',
+                headers: {
+                    'Accept': 'application/vnd.api+json'
+                }
             })
         })
 
@@ -157,7 +190,10 @@ describe('query builder', () => {
 
             expect(post.testApiRequest).toEqual({
                 method: 'GET',
-                url: 'https://sarala-demo.app/api/posts/?filter[unicorn][published-before]=2018-01-01&filter[unicorn][likes-above]=100'
+                url: 'https://sarala-demo.app/api/posts/?filter[unicorn][published-before]=2018-01-01&filter[unicorn][likes-above]=100',
+                headers: {
+                    'Accept': 'application/vnd.api+json'
+                }
             })
         })
 
@@ -168,7 +204,10 @@ describe('query builder', () => {
 
             expect(post.testApiRequest).toEqual({
                 method: 'GET',
-                url: 'https://sarala-demo.app/api/posts/?filter[limit]=10'
+                url: 'https://sarala-demo.app/api/posts/?filter[limit]=10',
+                headers: {
+                    'Accept': 'application/vnd.api+json'
+                }
             })
         })
 
@@ -179,7 +218,10 @@ describe('query builder', () => {
 
             expect(post.testApiRequest).toEqual({
                 method: 'GET',
-                url: 'https://sarala-demo.app/api/posts/?filter[offset]=10'
+                url: 'https://sarala-demo.app/api/posts/?filter[offset]=10',
+                headers: {
+                    'Accept': 'application/vnd.api+json'
+                }
             })
         })
 
@@ -190,7 +232,10 @@ describe('query builder', () => {
 
             expect(post.testApiRequest).toEqual({
                 method: 'GET',
-                url: 'https://sarala-demo.app/api/posts/?filter[limit]=10&filter[offset]=20'
+                url: 'https://sarala-demo.app/api/posts/?filter[limit]=10&filter[offset]=20',
+                headers: {
+                    'Accept': 'application/vnd.api+json'
+                }
             })
         })
     })
@@ -202,7 +247,10 @@ describe('query builder', () => {
 
         expect(post.testApiRequest).toEqual({
             method: 'GET',
-            url: 'https://sarala-demo.app/api/posts/?include=tags,author,comments.author&page[size]=4&page[number]=1'
+            url: 'https://sarala-demo.app/api/posts/?include=tags,author,comments.author&page[size]=4&page[number]=1',
+            headers: {
+                'Accept': 'application/vnd.api+json'
+            }
         })
     })
 
@@ -214,7 +262,10 @@ describe('query builder', () => {
 
         expect(post.testApiRequest).toEqual({
             method: 'GET',
-            url: 'https://sarala-demo.app/api/posts/?include=tags,author,comments.author&page[size]=4&page[number]=1'
+            url: 'https://sarala-demo.app/api/posts/?include=tags,author,comments.author&page[size]=4&page[number]=1',
+            headers: {
+                'Accept': 'application/vnd.api+json'
+            }
         })
     })
 })

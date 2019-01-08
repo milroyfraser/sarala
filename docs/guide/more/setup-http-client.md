@@ -29,10 +29,11 @@ import { Model } from 'sarala'
 
 export default class Post extends Model
 {
-    request ({ url, method, data }) {
+    request ({ url, method, data, headers }) {
         return fetch(url, {
-            method: method,
-            body: data
+            method,
+            body: data,
+            headers
         })
     }
     

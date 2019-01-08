@@ -15,6 +15,7 @@ let result = await post.all()
 
 ```
 GET /posts
+Accept: application/vnd.api+json
 ```
 
 ##### You can simply extend Sarala to [return a collection object](/guide/more/collection-pipeline.md) instead :sunglasses:
@@ -30,4 +31,5 @@ let result = await post.find(8)
 
 ```
 GET /posts/8
+Accept: application/vnd.api+json
 ```
