@@ -101,7 +101,7 @@ export default class Model {
 
     update () {
         return this.makePersistRequest({
-            url: this.links.self,
+            url: this.getSelfUrl(),
             method: 'PUT',
             data: this.serialize(this.data())
         })
@@ -109,14 +109,14 @@ export default class Model {
 
     delete () {
         return this.makePersistRequest({
-            url: this.links.self,
+            url: this.getSelfUrl(),
             method: 'DELETE'
         })
     }
 
     attach (model, data = null) {
         let config = {
-            url: `${this.links.self}/${model.type}/${model.id}`,
+            url: `${this.getSelfUrl()}/${model.type}/${model.id}`,
             method: 'POST'
         }
 
@@ -129,7 +129,7 @@ export default class Model {
 
     detach (model) {
         return this.makePersistRequest({
-            url: `${this.links.self}/${model.type}/${model.id}`,
+            url: `${this.getSelfUrl()}/${model.type}/${model.id}`,
             method: 'DELETE'
         })
     }
@@ -138,7 +138,7 @@ export default class Model {
         const data = this.serialize(this.data())
 
         return this.makePersistRequest({
-            url: `${this.links.self}/${relationship}`,
+            url: `${this.getSelfUrl()}/${relationship}`,
             method: 'PUT',
             data: data.data.relationships[relationship]
         })
@@ -324,6 +324,14 @@ export default class Model {
 
     resourceUrl () {
         return `${this.baseUrl()}/${this.resourceName()}/`
+    }
+
+    getSelfUrl () {
+        if (this.id === undefined) {
+            throw new Error(`Sarala: Unidentifiable resource exception. ${this.constructor.name} id property is undefined.`)
+        }
+
+        return `${this.resourceUrl()}${this.id}`
     }
 
     isCollection (data) {

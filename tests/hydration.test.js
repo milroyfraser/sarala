@@ -3,12 +3,12 @@ import {
     Post as ApiPost,
     PostWithAllNesterRelations as ApiPostWithAllNesterRelations,
     PostWithRelationalLinks as ApiPostWithRelationalLinks,
-    PaginatedPostsList as ApiPaginatedPostsList,
+    PaginatedPostsList as ApiPaginatedPostsList
 } from './dummy/data/json-api-responce'
 import User from './dummy/models/User'
 import Tag from './dummy/models/Tag'
 import Comment from './dummy/models/Comment'
-import PostNoTagRelation from "./dummy/models/PostNoTagRelation"
+import PostNoTagRelation from './dummy/models/PostNoTagRelation'
 
 describe('it hydrates', () => {
     test('single object', async () => {
