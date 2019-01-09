@@ -52,3 +52,8 @@ All notable changes to `sarala` will be documented in this file.
 
 ## v0.3.8 - 2019-01-09
 - Introduced headers preparation [#6](https://github.com/milroyfraser/sarala/pull/6)
+
+## v0.3.9 - 2019-01-09
+
+### Fixed
+- [Cannot read property 'self' of undefined](https://github.com/milroyfraser/sarala/issues/7): Generate self url when needed.

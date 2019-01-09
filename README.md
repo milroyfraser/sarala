@@ -1,15 +1,15 @@
 <p align="center"><p align="center"><img src="https://milroy.me/img/sarala-logo.svg" width="200"></p></p>
 
 <p align="center">
-    <a href="https://codecov.io/gh/milroyfraser/sarala">
-      <img src="https://codecov.io/gh/milroyfraser/sarala/branch/master/graph/badge.svg" />
-    </a>
-    <a href="https://www.npmjs.com/package/sarala">
-      <img src="https://badge.fury.io/js/sarala.svg" />
-    </a>   
     <a href="https://github.com/milroyfraser/sarala/blob/master/LICENSE">
       <img src="https://img.shields.io/apm/l/vim-mode.svg" />
-    </a>     
+    </a>  
+    <a href="https://travis-ci.org/milroyfraser/sarala">
+      <img src="https://travis-ci.org/milroyfraser/sarala.svg?branch=master" />
+    </a>
+    <a href='https://coveralls.io/github/milroyfraser/sarala'>
+        <img src='https://coveralls.io/repos/github/milroyfraser/sarala/badge.svg' alt='Coverage Status' />
+    </a>   
 </p>
 
 # Sarala JS
