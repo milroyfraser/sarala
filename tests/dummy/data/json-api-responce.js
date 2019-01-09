@@ -18,6 +18,20 @@ export const Post = {
     }
 }
 
+export const PostWithoutLinksAndMeta = {
+    "data": {
+        "type": "posts",
+        "id": "1",
+        "attributes": {
+            "slug": "voluptates-laborum-non-voluptatem-ducimus-veniam-et",
+            "title": "Voluptates laborum non voluptatem ducimus veniam et.",
+            "subtitle": "Cumque aut laudantium repudiandae rem repellendus voluptatem. Sunt ipsa eum ea molestias.",
+            "body": "Est quod itaque suscipit quidem dolor dolores velit. Nihil voluptas placeat ex consequatur quasi.\n\nEst nulla cupiditate ad beatae rerum veritatis vel. Quia ut doloribus consequatur porro. Eligendi sit et dignissimos qui voluptatem magnam mollitia labore.\n\nLibero saepe praesentium et sed. Exercitationem error rerum sit inventore provident laborum. Fuga pariatur dolor reiciendis. Quibusdam corrupti commodi ut quo non laboriosam quia. Nihil sit iste sit optio voluptas repellendus exercitationem.",
+            "published_at": "2018-01-25"
+        }
+    }
+}
+
 export const Tag = {
     "data": {
         "type": "tags",
