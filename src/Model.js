@@ -10,6 +10,7 @@ export default class Model {
         this.queryBuilder = new QueryBuilder()
         this.selfValidate()
         this.type = this.resourceName()
+        this.links = {}
     }
 
     // override
@@ -327,11 +328,17 @@ export default class Model {
     }
 
     getSelfUrl () {
-        if (this.id === undefined) {
+        if (this.links.hasOwnProperty('self')) {
+            return this.links.self
+        }
+
+        if (!this.hasOwnProperty('id')) {
             throw new Error(`Sarala: Unidentifiable resource exception. ${this.constructor.name} id property is undefined.`)
         }
 
-        return `${this.resourceUrl()}${this.id}`
+        this.links.self = `${this.resourceUrl()}${this.id}`
+
+        return this.links.self
     }
 
     isCollection (data) {
