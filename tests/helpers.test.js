@@ -27,12 +27,17 @@ describe('model getSelfUrl', () => {
 
     test('it throws error when id is undefined', () => {
         const doDumb = () => {
-            let data = ApiPostWithoutLinksAndMeta.data
-            delete data.id
-            const post = (new Post()).hydrate(data)
-            post.getSelfUrl()
+            (new Post()).getSelfUrl()
         }
 
         expect(doDumb).toThrow('Sarala: Unidentifiable resource exception. Post id property is undefined.')
+    })
+
+    test('it sets self url', () => {
+        let post = new Post()
+        post.id = 119
+
+        expect(post.getSelfUrl()).toEqual('https://sarala-demo.app/api/posts/119')
+        expect(post.links.self).toEqual('https://sarala-demo.app/api/posts/119')
     })
 })
