@@ -1,4 +1,14 @@
-import _ from 'lodash'
+import {
+    isUndefined,
+    forOwn,
+    isEmpty,
+    isArray,
+    clone,
+    cloneDeep,
+    map,
+    forEach,
+    isString
+} from 'lodash'
 import moment from 'moment'
 import { Formatter } from 'sarala-json-api-data-formatter'
 import QueryBuilder from './QueryBuilder'
@@ -182,8 +192,8 @@ export default class Model {
     }
 
     select (fields) {
-        if (_.isArray(fields)) {
-            const selectFields = _.clone(fields)
+        if (isArray(fields)) {
+            const selectFields = clone(fields)
             fields = {}
             fields[this.resourceName()] = selectFields
         }
@@ -196,7 +206,7 @@ export default class Model {
     // build model
 
     respond (response) {
-        if (!_.isEmpty(response)) {
+        if (!isEmpty(response)) {
             let data = this.deserialize(response)
 
             if (this.isCollection(data)) {
@@ -220,7 +230,7 @@ export default class Model {
             resolved.meta = data.meta
         }
 
-        resolved.data = this.newCollection(_.map(data.data, item => {
+        resolved.data = this.newCollection(map(data.data, item => {
             return this.resolveItem(item)
         }))
 
@@ -232,7 +242,7 @@ export default class Model {
     }
 
     hydrate (data) {
-        let model = _.clone(this)
+        let model = clone(this)
 
         model.id = data.id
         model.type = data.type
@@ -245,18 +255,18 @@ export default class Model {
             model.links = data.links
         }
 
-        _.forEach(this.fields(), field => {
+        forEach(this.fields(), field => {
             model[field] = data[field]
         })
 
-        _.forOwn(this.dates(), (format, field) => {
+        forOwn(this.dates(), (format, field) => {
             model[field] = moment(data[field])
         })
 
-        _.forEach(data.relationships, relationship => {
+        forEach(data.relationships, relationship => {
             let relation = model.relationships()[relationship]
 
-            if (_.isUndefined(relation)) {
+            if (isUndefined(relation)) {
                 throw new Error(`Sarale: Relationship ${relationship} has not been defined in ${model.constructor.name} model.`)
             }
 
@@ -267,7 +277,7 @@ export default class Model {
             }
         })
 
-        _.forOwn(model.computed(), (computation, key) => {
+        forOwn(model.computed(), (computation, key) => {
             model[key] = computation(model)
         })
 
@@ -289,24 +299,24 @@ export default class Model {
             data.relationships = this.relationshipNames
         }
 
-        _.forEach(this.fields(), field => {
-            if (!_.isUndefined(this[field])) {
+        forEach(this.fields(), field => {
+            if (!isUndefined(this[field])) {
                 data[field] = this[field]
             }
         })
 
-        _.forOwn(this.dates(), (format, field) => {
-            if (!_.isUndefined(this[field])) {
+        forOwn(this.dates(), (format, field) => {
+            if (!isUndefined(this[field])) {
                 data[field] = moment(this[field]).format(format)
             }
         })
 
-        _.forEach(this.relationships(), (model, relationship) => {
-            if (!_.isUndefined(this[relationship])) {
-                if (_.isArray(this[relationship].data)) {
+        forEach(this.relationships(), (model, relationship) => {
+            if (!isUndefined(this[relationship])) {
+                if (isArray(this[relationship].data)) {
                     data[relationship] = {
                         data_collection: true,
-                        data: _.map(this[relationship].data, relation => {
+                        data: map(this[relationship].data, relation => {
                             return relation.data()
                         })
                     }
@@ -342,7 +352,7 @@ export default class Model {
     }
 
     isCollection (data) {
-        return data.hasOwnProperty('data_collection') && data.data_collection === true && _.isArray(data.data)
+        return data.hasOwnProperty('data_collection') && data.data_collection === true && isArray(data.data)
     }
 
     deserialize (data) {
@@ -356,13 +366,13 @@ export default class Model {
     selfValidate () {
         const name = this.resourceName()
 
-        if (name === null || !_.isString(name) || name.length === 0) {
+        if (name === null || !isString(name) || name.length === 0) {
             throw new Error(`Sarale: Resource name not defined in ${this.constructor.name} model. Implement resourceName method in the ${this.constructor.name} model to resolve this error.`)
         }
     }
 
     clone () {
-        return _.cloneDeep(this)
+        return cloneDeep(this)
     }
 
     newCollection (data) {

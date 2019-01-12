@@ -1,4 +1,11 @@
-import _ from 'lodash'
+import {
+    indexOf,
+    isNull,
+    isUndefined,
+    isObject,
+    forOwn,
+    isEmpty
+} from 'lodash'
 
 export default class QueryBuilder {
     constructor () {
@@ -28,7 +35,7 @@ export default class QueryBuilder {
     }
 
     orderBy (column, direction) {
-        if (_.indexOf(['asc', 'desc'], direction) === -1) {
+        if (indexOf(['asc', 'desc'], direction) === -1) {
             throw new Error(`Sarale: Invalid sort direction: "${direction}". Allowed only "asc" or "desc".`)
         }
 
@@ -40,10 +47,10 @@ export default class QueryBuilder {
     }
 
     where (key, value, group) {
-        if (_.isNull(group)) {
+        if (isNull(group)) {
             this.filters[key] = value
         } else {
-            if (_.isUndefined(this.filters[group])) {
+            if (isUndefined(this.filters[group])) {
                 this.filters[group] = {}
             }
 
@@ -52,11 +59,11 @@ export default class QueryBuilder {
     }
 
     select (fields) {
-        if (!_.isObject(fields)) {
+        if (!isObject(fields)) {
             throw new Error(`Sarala: Invalid fields list.`)
         }
 
-        _.forOwn(fields, (value, resource) => {
+        forOwn(fields, (value, resource) => {
             this.fields[resource] = value.toString()
         })
     }
@@ -85,7 +92,7 @@ export default class QueryBuilder {
         let query = ''
         let prepend = ''
 
-        _.forOwn(this.fields, (fields, resource) => {
+        forOwn(this.fields, (fields, resource) => {
             query += `${prepend}fields[${resource}]=${fields.toString()}`
             prepend = '&'
         })
@@ -99,14 +106,14 @@ export default class QueryBuilder {
         let query = ''
         let prepend = ''
 
-        _.forOwn(this.filters, (value, filter) => {
-            if (_.isObject(value)) {
-                _.forOwn(value, (innerValue, innerFilter) => {
+        forOwn(this.filters, (value, filter) => {
+            if (isObject(value)) {
+                forOwn(value, (innerValue, innerFilter) => {
                     query += `${prepend}filter[${filter}][${innerFilter}]=${innerValue.toString()}`
                     prepend = '&'
                 })
             } else {
-                query += (_.isNull(value)) ? `${prepend}filter[${filter}]` : `${prepend}filter[${filter}]=${value.toString()}`
+                query += (isNull(value)) ? `${prepend}filter[${filter}]` : `${prepend}filter[${filter}]=${value.toString()}`
             }
             prepend = '&'
         })
@@ -123,7 +130,7 @@ export default class QueryBuilder {
     }
 
     appendPagination () {
-        if (!_.isEmpty(this.pagination)) {
+        if (!isEmpty(this.pagination)) {
             this.appendQuery(`page[size]=${this.pagination.size}&page[number]=${this.pagination.number}`)
         }
     }
