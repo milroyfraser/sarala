@@ -18,6 +18,45 @@ export const Post = {
     }
 }
 
+export const PostAuthor = {
+    "data": {
+        "type": "users",
+        "id": "1",
+        "attributes": {
+            "name": "Heidi Hintz Jr.",
+            "email": "margret06@example.com"
+        },
+        "links": {
+            "self": "https:\/\/sarala-demo.app\/api\/users\/1"
+        }
+    }
+}
+
+export const PostTags = {
+    "data": [
+        {
+            "type": "tags",
+            "id": "1",
+            "attributes": {
+                "name": "voluptates"
+            },
+            "links": {
+                "self": "https:\/\/sarala-demo.app\/api\/tags\/1"
+            }
+        },
+        {
+            "type": "tags",
+            "id": "15",
+            "attributes": {
+                "name": "dolorum"
+            },
+            "links": {
+                "self": "https:\/\/sarala-demo.app\/api\/tags\/15"
+            }
+        }
+    ]
+}
+
 export const PostWithoutLinksAndMeta = {
     "data": {
         "type": "posts",

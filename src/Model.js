@@ -48,7 +48,7 @@ export default class Model {
         // to be implemented in base model
     }
 
-    // requests
+    // fetch requests
 
     async makeFetchRequest (url) {
         const requestConfig = {
@@ -81,6 +81,24 @@ export default class Model {
 
         return this.makeFetchRequest(`${this.resourceUrl()}${this.queryBuilder.getQuery()}`)
     }
+
+    async fetchRelation (relationship, links) {
+        let url
+
+        if (!isUndefined(links) && !isUndefined(links.self)) {
+            url = links.self
+        }
+
+        if (isUndefined(url)) {
+            url = this.getRelationshipUrl(relationship)
+        }
+
+        this[relationship] = await this.relationships()[relationship].makeFetchRequest(url)
+
+        return this[relationship]
+    }
+
+    // persist requests
 
     async makePersistRequest (config) {
         config.headers = {
@@ -250,11 +268,11 @@ export default class Model {
             model.links = data.links
         }
 
-        forEach(this.fields(), field => {
+        forEach(model.fields(), field => {
             model[field] = data[field]
         })
 
-        forOwn(this.dates(), (format, field) => {
+        forOwn(model.dates(), (format, field) => {
             model[field] = moment(data[field])
         })
 
@@ -265,10 +283,28 @@ export default class Model {
                 throw new Error(`Sarale: Relationship ${relationship} has not been defined in ${model.constructor.name} model.`)
             }
 
+            const fetch = () => {
+                return model.fetchRelation(relationship, data[relationship].links)
+            }
+
             if (this.isCollection(data[relationship])) {
-                model[relationship] = relation.resolveCollection(data[relationship])
+                model[relationship] = {
+                    ...relation.resolveCollection(data[relationship]),
+                    fetch
+                }
             } else if (data[relationship].data) {
                 model[relationship] = relation.resolveItem(data[relationship].data)
+                model[relationship].fetch = fetch
+            }
+        })
+
+        forOwn(model.relationships(), (relatedModel, relationshipName) => {
+            if (isUndefined(model[relationshipName])) {
+                model[relationshipName] = {
+                    fetch: () => {
+                        return model.fetchRelation(relationshipName)
+                    }
+                }
             }
         })
 
@@ -307,7 +343,7 @@ export default class Model {
         })
 
         forEach(this.relationships(), (model, relationship) => {
-            if (!isUndefined(this[relationship])) {
+            if (!isUndefined(this[relationship]) && !isUndefined(this[relationship].data)) {
                 if (isArray(this[relationship].data)) {
                     data[relationship] = {
                         data_collection: true,
@@ -344,6 +380,10 @@ export default class Model {
         this.links.self = `${this.resourceUrl()}${this.id}`
 
         return this.links.self
+    }
+
+    getRelationshipUrl (relationship) {
+        return `${this.getSelfUrl()}/relationships/${relationship}`
     }
 
     isCollection (data) {

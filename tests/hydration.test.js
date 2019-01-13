@@ -100,8 +100,8 @@ describe('it hydrates', () => {
         expect(result.body).toEqual(ApiPost.data.attributes.body)
         expect(result.published_at.format('YYYY-MM-DD')).toEqual(ApiPost.data.attributes.published_at)
 
-        expect(result.author).toBeUndefined()
-        expect(result.tags).toBeUndefined()
+        expect(result.author.fetch).toBeInstanceOf(Function)
+        expect(result.tags.fetch).toBeInstanceOf(Function)
     })
 
     test('should throw an error when relation ship is not defined', async () => {
