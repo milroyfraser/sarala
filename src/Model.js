@@ -1,7 +1,6 @@
 import {
     isUndefined,
     forOwn,
-    isEmpty,
     isArray,
     clone,
     cloneDeep,
@@ -206,17 +205,13 @@ export default class Model {
     // build model
 
     respond (response) {
-        if (!isEmpty(response)) {
-            let data = this.deserialize(response)
+        let data = this.deserialize(response)
 
-            if (this.isCollection(data)) {
-                return this.resolveCollection(data)
-            }
-
-            return this.resolveItem(data)
+        if (this.isCollection(data)) {
+            return this.resolveCollection(data)
         }
 
-        return null
+        return this.resolveItem(data)
     }
 
     resolveCollection (data) {
