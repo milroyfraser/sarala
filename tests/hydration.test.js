@@ -1,20 +1,32 @@
-import Post from './dummy/models/Post'
 import {
     Post as ApiPost,
     PostWithAllNesterRelations as ApiPostWithAllNesterRelations,
     PostWithRelationalLinks as ApiPostWithRelationalLinks,
     PaginatedPostsList as ApiPaginatedPostsList
 } from './dummy/data/json-api-responce'
+import moxios from 'moxios'
+import Post from './dummy/models/Post'
 import User from './dummy/models/User'
 import Tag from './dummy/models/Tag'
 import Comment from './dummy/models/Comment'
 import PostNoTagRelation from './dummy/models/PostNoTagRelation'
 
 describe('it hydrates', () => {
-    test('single object', async () => {
-        const post = new Post()
-        post.testApiResponse = ApiPost
+    beforeEach(() => {
+        moxios.install()
+    })
 
+    afterEach(() => {
+        moxios.uninstall()
+    })
+
+    test('single object', async () => {
+        moxios.stubRequest('https://sarala-demo.app/api/posts/1', {
+            status: 200,
+            response: ApiPost
+        })
+
+        const post = new Post()
         let result = await post.find(1)
 
         expect(result).toBeInstanceOf(Post)
@@ -27,9 +39,12 @@ describe('it hydrates', () => {
     })
 
     test('single object collection with links and meta', async () => {
-        const post = new Post()
-        post.testApiResponse = ApiPaginatedPostsList
+        moxios.stubRequest('https://sarala-demo.app/api/posts/', {
+            status: 200,
+            response: ApiPaginatedPostsList
+        })
 
+        const post = new Post()
         let result = await post.all()
 
         expect(result.data.length).toEqual(4)
@@ -39,9 +54,12 @@ describe('it hydrates', () => {
     })
 
     test('single object with relations', async () => {
-        const post = new Post()
-        post.testApiResponse = ApiPostWithAllNesterRelations
+        moxios.stubRequest('https://sarala-demo.app/api/posts/1', {
+            status: 200,
+            response: ApiPostWithAllNesterRelations
+        })
 
+        const post = new Post()
         let result = await post.find(1)
 
         expect(result).toBeInstanceOf(Post)
@@ -66,9 +84,12 @@ describe('it hydrates', () => {
     })
 
     test('single object with relations without data', async () => {
-        const post = new Post()
-        post.testApiResponse = ApiPostWithRelationalLinks
+        moxios.stubRequest('https://sarala-demo.app/api/posts/1', {
+            status: 200,
+            response: ApiPostWithRelationalLinks
+        })
 
+        const post = new Post()
         let result = await post.find(1)
 
         expect(result).toBeInstanceOf(Post)
@@ -84,8 +105,12 @@ describe('it hydrates', () => {
     })
 
     test('should throw an error when relation ship is not defined', async () => {
+        moxios.stubRequest('https://sarala-demo.app/api/posts/1', {
+            status: 200,
+            response: ApiPostWithAllNesterRelations
+        })
+
         const post = new PostNoTagRelation()
-        post.testApiResponse = ApiPostWithAllNesterRelations
 
         await expect(post.find(1)).rejects.toThrow('Sarale: Relationship tags has not been defined in PostNoTagRelation model.')
     })

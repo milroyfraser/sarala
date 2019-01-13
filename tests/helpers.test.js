@@ -1,8 +1,8 @@
-import Unicorn from './dummy/models/Unicorn'
-import Post from './dummy/models/Post'
 import {
     PostWithoutLinksAndMeta as ApiPostWithoutLinksAndMeta
 } from './dummy/data/json-api-responce'
+import Unicorn from './dummy/models/Unicorn'
+import Post from './dummy/models/Post'
 
 test('can clone a model', () => {
     const rainbowUnicorn = new Unicorn()

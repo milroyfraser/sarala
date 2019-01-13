@@ -1,14 +1,26 @@
-import Post from './dummy/models/Post'
 import {
     Post as ApiPost,
     PostWithAllNesterRelations as ApiPostWithAllNesterRelations
 } from './dummy/data/json-api-responce'
+import moxios from 'moxios'
+import Post from './dummy/models/Post'
 
 describe('it extracts data from', () => {
-    test('single object', async () => {
-        const post = new Post()
-        post.testApiResponse = ApiPost
+    beforeEach(() => {
+        moxios.install()
+    })
 
+    afterEach(() => {
+        moxios.uninstall()
+    })
+
+    test('single object', async () => {
+        moxios.stubRequest('https://sarala-demo.app/api/posts/1', {
+            status: 200,
+            response: ApiPost
+        })
+
+        const post = new Post()
         let result = await post.find(1)
         let data = result.data()
 
@@ -21,9 +33,12 @@ describe('it extracts data from', () => {
     })
 
     test('single object with relations', async () => {
-        const post = new Post()
-        post.testApiResponse = ApiPostWithAllNesterRelations
+        moxios.stubRequest('https://sarala-demo.app/api/posts/1', {
+            status: 200,
+            response: ApiPostWithAllNesterRelations
+        })
 
+        const post = new Post()
         let result = await post.find(1)
         let data = result.data()
 

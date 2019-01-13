@@ -1,102 +1,132 @@
+import moxios from 'moxios'
 import Post from './dummy/models/Post'
 
 describe('query builder', () => {
-    test('all', async () => {
-        const post = new Post()
-        post.testApiResponse = {}
-        await post.all()
+    beforeEach(() => {
+        moxios.install()
+    })
 
-        expect(post.testApiRequest).toEqual({
-            method: 'GET',
-            url: 'https://sarala-demo.app/api/posts/',
-            headers: {
+    afterEach(() => {
+        moxios.uninstall()
+    })
+
+    test('all', (done) => {
+        const post = new Post()
+        post.all()
+
+        moxios.wait(() => {
+            let request = moxios.requests.mostRecent()
+
+            expect(request.config.method).toEqual('get')
+            expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/')
+            expect(request.config.headers).toEqual({
                 'Accept': 'application/vnd.api+json'
-            }
+            })
+
+            done()
         })
     })
 
-    test('find', async () => {
+    test('find', (done) => {
         const post = new Post()
-        post.testApiResponse = {}
-        await post.find(1)
+        post.find(1)
 
-        expect(post.testApiRequest).toEqual({
-            method: 'GET',
-            url: 'https://sarala-demo.app/api/posts/1',
-            headers: {
+        moxios.wait(() => {
+            let request = moxios.requests.mostRecent()
+
+            expect(request.config.method).toEqual('get')
+            expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/1')
+            expect(request.config.headers).toEqual({
                 'Accept': 'application/vnd.api+json'
-            }
+            })
+
+            done()
         })
     })
 
-    test('with', async () => {
+    test('with', (done) => {
         const post = new Post()
-        post.testApiResponse = {}
-        await post.with(['tags', 'author', 'comments.author']).find(1)
+        post.with(['tags', 'author', 'comments.author']).find(1)
 
-        expect(post.testApiRequest).toEqual({
-            method: 'GET',
-            url: 'https://sarala-demo.app/api/posts/1?include=tags,author,comments.author',
-            headers: {
+        moxios.wait(() => {
+            let request = moxios.requests.mostRecent()
+
+            expect(request.config.method).toEqual('get')
+            expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/1?include=tags,author,comments.author')
+            expect(request.config.headers).toEqual({
                 'Accept': 'application/vnd.api+json'
-            }
+            })
+
+            done()
         })
     })
 
-    test('paginate', async () => {
+    test('paginate', (done) => {
         const post = new Post()
-        post.testApiResponse = {}
-        await post.paginate(4, 2)
+        post.paginate(4, 2)
 
-        expect(post.testApiRequest).toEqual({
-            method: 'GET',
-            url: 'https://sarala-demo.app/api/posts/?page[size]=4&page[number]=2',
-            headers: {
+        moxios.wait(() => {
+            let request = moxios.requests.mostRecent()
+
+            expect(request.config.method).toEqual('get')
+            expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/?page[size]=4&page[number]=2')
+            expect(request.config.headers).toEqual({
                 'Accept': 'application/vnd.api+json'
-            }
+            })
+
+            done()
         })
     })
 
     describe('sorting', () => {
-        test('orderBy', async () => {
+        test('orderBy', (done) => {
             const post = new Post()
-            post.testApiResponse = {}
-            await post.orderBy('published_at').all()
+            post.orderBy('published_at').all()
 
-            expect(post.testApiRequest).toEqual({
-                method: 'GET',
-                url: 'https://sarala-demo.app/api/posts/?sort=published_at',
-                headers: {
+            moxios.wait(() => {
+                let request = moxios.requests.mostRecent()
+
+                expect(request.config.method).toEqual('get')
+                expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/?sort=published_at')
+                expect(request.config.headers).toEqual({
                     'Accept': 'application/vnd.api+json'
-                }
+                })
+
+                done()
             })
         })
 
-        test('orderByDesc', async () => {
+        test('orderByDesc', (done) => {
             const post = new Post()
-            post.testApiResponse = {}
-            await post.orderByDesc('published_at').all()
+            post.orderByDesc('published_at').all()
 
-            expect(post.testApiRequest).toEqual({
-                method: 'GET',
-                url: 'https://sarala-demo.app/api/posts/?sort=-published_at',
-                headers: {
+            moxios.wait(() => {
+                let request = moxios.requests.mostRecent()
+
+                expect(request.config.method).toEqual('get')
+                expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/?sort=-published_at')
+                expect(request.config.headers).toEqual({
                     'Accept': 'application/vnd.api+json'
-                }
+                })
+
+                done()
             })
         })
 
-        test('chain sort methods', async () => {
+        test('chain sort methods', (done) => {
             const post = new Post()
-            post.testApiResponse = {}
-            await post.orderBy('author.name').orderByDesc('published_at').all()
+            post.orderBy('author.name').orderByDesc('published_at').all()
 
-            expect(post.testApiRequest).toEqual({
-                method: 'GET',
-                url: 'https://sarala-demo.app/api/posts/?sort=author.name,-published_at',
-                headers: {
+            moxios.wait(() => {
+                let request = moxios.requests.mostRecent()
+
+                expect(request.config.method).toEqual('get')
+                expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/?sort=author.name,-published_at')
+                expect(request.config.headers).toEqual({
                     'Accept': 'application/vnd.api+json'
-                }
+                })
+
+                done()
             })
         })
 
@@ -111,34 +141,40 @@ describe('query builder', () => {
     })
 
     describe('sparse fields', () => {
-        test('model fields as an array', async () => {
+        test('model fields as an array', (done) => {
             const post = new Post()
-            post.testApiResponse = {}
-            await post.select(['title', 'subtitle']).all()
+            post.select(['title', 'subtitle']).all()
 
-            expect(post.testApiRequest).toEqual({
-                method: 'GET',
-                url: 'https://sarala-demo.app/api/posts/?fields[posts]=title,subtitle',
-                headers: {
+            moxios.wait(() => {
+                let request = moxios.requests.mostRecent()
+
+                expect(request.config.method).toEqual('get')
+                expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/?fields[posts]=title,subtitle')
+                expect(request.config.headers).toEqual({
                     'Accept': 'application/vnd.api+json'
-                }
+                })
+
+                done()
             })
         })
 
-        test('relationships fields as an object', async () => {
+        test('relationships fields as an object', (done) => {
             const post = new Post()
-            post.testApiResponse = {}
-            await post.select({
+            post.select({
                 posts: ['title', 'subtitle'],
                 tags: ['name']
             }).all()
 
-            expect(post.testApiRequest).toEqual({
-                method: 'GET',
-                url: 'https://sarala-demo.app/api/posts/?fields[posts]=title,subtitle&fields[tags]=name',
-                headers: {
+            moxios.wait(() => {
+                let request = moxios.requests.mostRecent()
+
+                expect(request.config.method).toEqual('get')
+                expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/?fields[posts]=title,subtitle&fields[tags]=name')
+                expect(request.config.headers).toEqual({
                     'Accept': 'application/vnd.api+json'
-                }
+                })
+
+                done()
             })
         })
 
@@ -153,119 +189,143 @@ describe('query builder', () => {
     })
 
     describe('filtering', () => {
-        test('filter', async () => {
+        test('filter', (done) => {
             const post = new Post()
-            post.testApiResponse = {}
-            await post.filter('archived').all()
+            post.filter('archived').all()
 
-            expect(post.testApiRequest).toEqual({
-                method: 'GET',
-                url: 'https://sarala-demo.app/api/posts/?filter[archived]',
-                headers: {
+            moxios.wait(() => {
+                let request = moxios.requests.mostRecent()
+
+                expect(request.config.method).toEqual('get')
+                expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/?filter[archived]')
+                expect(request.config.headers).toEqual({
                     'Accept': 'application/vnd.api+json'
-                }
+                })
+
+                done()
             })
         })
 
-        test('where', async () => {
+        test('where', (done) => {
             const post = new Post()
-            post.testApiResponse = {}
-            await post.where('published-before', '2018-01-01').all()
+            post.where('published-before', '2018-01-01').all()
 
-            expect(post.testApiRequest).toEqual({
-                method: 'GET',
-                url: 'https://sarala-demo.app/api/posts/?filter[published-before]=2018-01-01',
-                headers: {
+            moxios.wait(() => {
+                let request = moxios.requests.mostRecent()
+
+                expect(request.config.method).toEqual('get')
+                expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/?filter[published-before]=2018-01-01')
+                expect(request.config.headers).toEqual({
                     'Accept': 'application/vnd.api+json'
-                }
+                })
+
+                done()
             })
         })
 
-        test('where group', async () => {
+        test('where group', (done) => {
             const post = new Post()
-            post.testApiResponse = {}
-            await post.where('published-before', '2018-01-01', 'unicorn')
+            post.where('published-before', '2018-01-01', 'unicorn')
                 .where('likes-above', 100, 'unicorn')
                 .all()
 
-            expect(post.testApiRequest).toEqual({
-                method: 'GET',
-                url: 'https://sarala-demo.app/api/posts/?filter[unicorn][published-before]=2018-01-01&filter[unicorn][likes-above]=100',
-                headers: {
+            moxios.wait(() => {
+                let request = moxios.requests.mostRecent()
+
+                expect(request.config.method).toEqual('get')
+                expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/?filter[unicorn][published-before]=2018-01-01&filter[unicorn][likes-above]=100')
+                expect(request.config.headers).toEqual({
                     'Accept': 'application/vnd.api+json'
-                }
+                })
+
+                done()
             })
         })
 
-        test('limit', async () => {
+        test('limit', (done) => {
             const post = new Post()
-            post.testApiResponse = {}
-            await post.limit(10).get()
+            post.limit(10).get()
 
-            expect(post.testApiRequest).toEqual({
-                method: 'GET',
-                url: 'https://sarala-demo.app/api/posts/?filter[limit]=10',
-                headers: {
+            moxios.wait(() => {
+                let request = moxios.requests.mostRecent()
+
+                expect(request.config.method).toEqual('get')
+                expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/?filter[limit]=10')
+                expect(request.config.headers).toEqual({
                     'Accept': 'application/vnd.api+json'
-                }
+                })
+
+                done()
             })
         })
 
-        test('offset', async () => {
+        test('offset', (done) => {
             const post = new Post()
-            post.testApiResponse = {}
-            await post.offset(10).get()
+            post.offset(10).get()
 
-            expect(post.testApiRequest).toEqual({
-                method: 'GET',
-                url: 'https://sarala-demo.app/api/posts/?filter[offset]=10',
-                headers: {
+            moxios.wait(() => {
+                let request = moxios.requests.mostRecent()
+
+                expect(request.config.method).toEqual('get')
+                expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/?filter[offset]=10')
+                expect(request.config.headers).toEqual({
                     'Accept': 'application/vnd.api+json'
-                }
+                })
+
+                done()
             })
         })
 
-        test('limit and offset', async () => {
+        test('limit and offset', (done) => {
             const post = new Post()
-            post.testApiResponse = {}
-            await post.limit(10).offset(20).get()
+            post.limit(10).offset(20).get()
 
-            expect(post.testApiRequest).toEqual({
-                method: 'GET',
-                url: 'https://sarala-demo.app/api/posts/?filter[limit]=10&filter[offset]=20',
-                headers: {
+            moxios.wait(() => {
+                let request = moxios.requests.mostRecent()
+
+                expect(request.config.method).toEqual('get')
+                expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/?filter[limit]=10&filter[offset]=20')
+                expect(request.config.headers).toEqual({
                     'Accept': 'application/vnd.api+json'
-                }
+                })
+
+                done()
             })
         })
     })
 
-    test('chain filters with paginate', async () => {
+    test('chain filters with paginate', (done) => {
         const post = new Post()
-        post.testApiResponse = {}
-        await post.with(['tags', 'author', 'comments.author']).paginate(4, 1)
+        post.with(['tags', 'author', 'comments.author']).paginate(4, 1)
 
-        expect(post.testApiRequest).toEqual({
-            method: 'GET',
-            url: 'https://sarala-demo.app/api/posts/?include=tags,author,comments.author&page[size]=4&page[number]=1',
-            headers: {
+        moxios.wait(() => {
+            let request = moxios.requests.mostRecent()
+
+            expect(request.config.method).toEqual('get')
+            expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/?include=tags,author,comments.author&page[size]=4&page[number]=1')
+            expect(request.config.headers).toEqual({
                 'Accept': 'application/vnd.api+json'
-            }
+            })
+
+            done()
         })
     })
 
-    test('querying from same instance multiple time should not merge request url', async () => {
+    test('querying from same instance multiple time should not merge request url', (done) => {
         const post = new Post()
-        post.testApiResponse = {}
-        await post.with(['tags', 'author', 'comments.author']).paginate(4, 1)
-        await post.with(['tags', 'author', 'comments.author']).paginate(4, 1)
+        post.with(['tags', 'author', 'comments.author']).paginate(4, 1)
+        post.with(['tags', 'author', 'comments.author']).paginate(4, 1)
 
-        expect(post.testApiRequest).toEqual({
-            method: 'GET',
-            url: 'https://sarala-demo.app/api/posts/?include=tags,author,comments.author&page[size]=4&page[number]=1',
-            headers: {
+        moxios.wait(() => {
+            let request = moxios.requests.mostRecent()
+
+            expect(request.config.method).toEqual('get')
+            expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/?include=tags,author,comments.author&page[size]=4&page[number]=1')
+            expect(request.config.headers).toEqual({
                 'Accept': 'application/vnd.api+json'
-            }
+            })
+
+            done()
         })
     })
 })

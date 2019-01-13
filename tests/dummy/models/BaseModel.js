@@ -1,3 +1,4 @@
+import axios from 'axios'
 import Model from './../../../src/Model'
 
 export default class BaseModel extends Model {
@@ -6,10 +7,6 @@ export default class BaseModel extends Model {
     }
 
     async request (config) {
-        this.testApiRequest = config
-
-        return {
-            data: this.testApiResponse
-        }
+        return axios.request(config)
     }
 }
