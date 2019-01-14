@@ -57,3 +57,8 @@ All notable changes to `sarala` will be documented in this file.
 
 ### Fixed
 - [Cannot read property 'self' of undefined](https://github.com/milroyfraser/sarala/issues/7): Generate self url when needed.
+
+## v0.3.10 - 2019-01-14
+
+### Added
+- [Fetching Relationships (Lazy Eager Loading)](https://sarala-io.github.io/sarala-js-docs/guide/fetching-data/fetching-relationships.html): [#8](https://github.com/milroyfraser/sarala/issues/8).
