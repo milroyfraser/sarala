@@ -2,7 +2,7 @@
 sidebarDepth: 0
 ---
 
-## Include Relationships
+## Inclusion of Related Resources (Eager Loads)
 
 #### Include relationships with resource collection
 

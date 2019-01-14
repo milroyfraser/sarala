@@ -1,10 +1,14 @@
 import {
     Post as ApiPost,
+    PostAuthor as ApiPostAuthor,
+    PostTags as ApiPostTags,
     PostWithAllNesterRelations as ApiPostWithAllNesterRelations,
+    PostWithAllNesterRelationsWithoutSelfLink as ApiPostWithAllNesterRelationsWithoutSelfLink,
     Tag as ApiTag
-} from './dummy/data/json-api-responce';
+} from './dummy/data/json-api-responce'
 import moxios from 'moxios'
 import moment from 'moment'
+import User from './dummy/models/User'
 import Post from './dummy/models/Post'
 import Tag from './dummy/models/Tag'
 
@@ -337,5 +341,147 @@ describe('api requests', () => {
 
             done()
         })
+    })
+
+    test('fetch to one relationship should make a get request to combined endpoint', async (done) => {
+        moxios.stubRequest('https://sarala-demo.app/api/posts/1', {
+            status: 200,
+            response: ApiPostWithAllNesterRelations
+        })
+
+        const post = new Post()
+        let postResult = await post.find(1)
+
+        postResult.author.fetch()
+
+        moxios.wait(() => {
+            let request = moxios.requests.mostRecent()
+
+            expect(request.config.method).toEqual('get')
+            expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/1/relationships/author')
+            expect(request.config.headers).toEqual({
+                'Accept': 'application/vnd.api+json'
+            })
+
+            done()
+        })
+    })
+
+    test('fetch to many relationship should make a get request to combined endpoint', async (done) => {
+        moxios.stubRequest('https://sarala-demo.app/api/posts/1', {
+            status: 200,
+            response: ApiPostWithAllNesterRelations
+        })
+
+        const post = new Post()
+        let postResult = await post.find(1)
+
+        postResult.tags.fetch()
+
+        moxios.wait(() => {
+            let request = moxios.requests.mostRecent()
+
+            expect(request.config.method).toEqual('get')
+            expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/1/relationships/tags')
+            expect(request.config.headers).toEqual({
+                'Accept': 'application/vnd.api+json'
+            })
+
+            done()
+        })
+    })
+
+    test('can fetch to one relationship of even the self link of the relationship is not available', async (done) => {
+        moxios.stubRequest('https://sarala-demo.app/api/posts/1', {
+            status: 200,
+            response: ApiPostWithAllNesterRelationsWithoutSelfLink
+        })
+
+        const post = new Post()
+        let postResult = await post.find(1)
+
+        postResult.author.fetch()
+
+        moxios.wait(() => {
+            let request = moxios.requests.mostRecent()
+
+            expect(request.config.method).toEqual('get')
+            expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/1/relationships/author')
+            expect(request.config.headers).toEqual({
+                'Accept': 'application/vnd.api+json'
+            })
+
+            done()
+        })
+    })
+
+    test('can fetch to many relationship of even the self links of the relationship is not available', async (done) => {
+        moxios.stubRequest('https://sarala-demo.app/api/posts/1', {
+            status: 200,
+            response: ApiPostWithAllNesterRelationsWithoutSelfLink
+        })
+
+        const post = new Post()
+        let postResult = await post.find(1)
+
+        postResult.tags.fetch()
+
+        moxios.wait(() => {
+            let request = moxios.requests.mostRecent()
+
+            expect(request.config.method).toEqual('get')
+            expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/1/relationships/tags')
+            expect(request.config.headers).toEqual({
+                'Accept': 'application/vnd.api+json'
+            })
+
+            done()
+        })
+    })
+
+    test('fetch to one relationship set data properly', async () => {
+        moxios.stubRequest('https://sarala-demo.app/api/posts/1', {
+            status: 200,
+            response: ApiPost
+        })
+
+        moxios.stubRequest('https://sarala-demo.app/api/posts/1/relationships/author', {
+            status: 200,
+            response: ApiPostAuthor
+        })
+
+        const post = new Post()
+        let postResult = await post.find(1)
+        let postAuthor = await postResult.author.fetch()
+
+        expect(postResult.author).toBeInstanceOf(User)
+        expect(postResult.author.name).toEqual('Heidi Hintz Jr.')
+
+        expect(postAuthor).toBeInstanceOf(User)
+        expect(postAuthor.name).toEqual('Heidi Hintz Jr.')
+    })
+
+    test('fetch to many relationship set data properly', async () => {
+        moxios.stubRequest('https://sarala-demo.app/api/posts/1', {
+            status: 200,
+            response: ApiPost
+        })
+
+        moxios.stubRequest('https://sarala-demo.app/api/posts/1/relationships/tags', {
+            status: 200,
+            response: ApiPostTags
+        })
+
+        const post = new Post()
+        let postResult = await post.find(1)
+        let postTags = await postResult.tags.fetch()
+
+        expect(postResult.tags.data.length).toEqual(2)
+        expect(postResult.tags.data[0]).toBeInstanceOf(Tag)
+        expect(postResult.tags.data[1]).toBeInstanceOf(Tag)
+
+        expect(postTags.data.length).toEqual(2)
+        expect(postTags.data[0]).toBeInstanceOf(Tag)
+        expect(postTags.data[1]).toBeInstanceOf(Tag)
     })
 })

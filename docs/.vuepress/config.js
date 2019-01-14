@@ -1,7 +1,7 @@
 module.exports = {
     base: '/sarala-js-docs/',
     title: 'Sarala JS',
-    description: 'to consume {json:api} eloquently',
+    description: 'consume {json:api} eloquently',
     head: [
         ['link', { rel: 'icon', href: '/images/sarala-logo.png' }]
     ],
@@ -34,7 +34,8 @@ module.exports = {
                     collapsable: false,
                     children: [
                         '/guide/fetching-data/fetching-resource.md',
-                        '/guide/fetching-data/include-relationships.md',
+                        ['/guide/fetching-data/fetching-relationships.md', 'Fetching Relationships'],
+                        ['/guide/fetching-data/inclusion-of-related-resources.md', 'Inclusion of Related Resources'],
                         '/guide/fetching-data/sparse-fieldsets.md',
                         '/guide/fetching-data/filtering.md',
                         '/guide/fetching-data/paginate.md',
