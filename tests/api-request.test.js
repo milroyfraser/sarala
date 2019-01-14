@@ -3,6 +3,7 @@ import {
     PostAuthor as ApiPostAuthor,
     PostTags as ApiPostTags,
     PostWithAllNesterRelations as ApiPostWithAllNesterRelations,
+    PostWithAllNesterRelationsWithoutSelfLink as ApiPostWithAllNesterRelationsWithoutSelfLink,
     Tag as ApiTag
 } from './dummy/data/json-api-responce'
 import moxios from 'moxios'
@@ -390,10 +391,10 @@ describe('api requests', () => {
         })
     })
 
-    test('can fetch to one relationship of even the links are not available', async (done) => {
+    test('can fetch to one relationship of even the self link of the relationship is not available', async (done) => {
         moxios.stubRequest('https://sarala-demo.app/api/posts/1', {
             status: 200,
-            response: ApiPost
+            response: ApiPostWithAllNesterRelationsWithoutSelfLink
         })
 
         const post = new Post()
@@ -414,10 +415,10 @@ describe('api requests', () => {
         })
     })
 
-    test('can fetch to many relationship of even the links are not available', async (done) => {
+    test('can fetch to many relationship of even the self links of the relationship is not available', async (done) => {
         moxios.stubRequest('https://sarala-demo.app/api/posts/1', {
             status: 200,
-            response: ApiPost
+            response: ApiPostWithAllNesterRelationsWithoutSelfLink
         })
 
         const post = new Post()

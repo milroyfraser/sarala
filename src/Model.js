@@ -82,18 +82,12 @@ export default class Model {
         return this.makeFetchRequest(`${this.resourceUrl()}${this.queryBuilder.getQuery()}`)
     }
 
-    async fetchRelation (relationship, links) {
-        let url
-
-        if (!isUndefined(links) && !isUndefined(links.self)) {
-            url = links.self
+    async fetchRelation (relationship, links = {}) {
+        if (isUndefined(links.self)) {
+            links.self = this.getRelationshipUrl(relationship)
         }
 
-        if (isUndefined(url)) {
-            url = this.getRelationshipUrl(relationship)
-        }
-
-        this[relationship] = await this.relationships()[relationship].makeFetchRequest(url)
+        this[relationship] = await this.relationships()[relationship].makeFetchRequest(links.self)
 
         return this[relationship]
     }
