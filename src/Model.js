@@ -124,7 +124,7 @@ export default class Model {
     update () {
         return this.makePersistRequest({
             url: this.getSelfUrl(),
-            method: 'PUT',
+            method: 'PATCH',
             data: this.serialize(this.data())
         })
     }
@@ -161,7 +161,7 @@ export default class Model {
 
         return this.makePersistRequest({
             url: `${this.getSelfUrl()}/${relationship}`,
-            method: 'PUT',
+            method: 'PATCH',
             data: data.data.relationships[relationship]
         })
     }
