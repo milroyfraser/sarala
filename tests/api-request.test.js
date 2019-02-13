@@ -137,7 +137,7 @@ describe('api requests', () => {
         })
     })
 
-    test('saving pre hydrated object with an id should make a put request to resource endpoint', async (done) => {
+    test('saving pre hydrated object with an id should make a patch request to resource endpoint', async (done) => {
         moxios.stubRequest('https://sarala-demo.app/api/posts/1', {
             status: 200,
             response: ApiPost
@@ -154,7 +154,7 @@ describe('api requests', () => {
         moxios.wait(() => {
             let request = moxios.requests.mostRecent()
 
-            expect(request.config.method).toEqual('put')
+            expect(request.config.method).toEqual('patch')
             expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/1')
             expect(request.config.headers).toEqual({
                 'Content-Type': 'application/vnd.api+json',
@@ -306,7 +306,7 @@ describe('api requests', () => {
         })
     })
 
-    test('sync relationship should make a put request to combined endpoint', async (done) => {
+    test('sync relationship should make a patch request to combined endpoint', async (done) => {
         moxios.stubRequest('https://sarala-demo.app/api/posts/1', {
             status: 200,
             response: ApiPostWithAllNesterRelations
@@ -320,7 +320,7 @@ describe('api requests', () => {
         moxios.wait(() => {
             let request = moxios.requests.mostRecent()
 
-            expect(request.config.method).toEqual('put')
+            expect(request.config.method).toEqual('patch')
             expect(request.config.url).toEqual('https://sarala-demo.app/api/posts/1/tags')
             expect(request.config.headers).toEqual({
                 'Content-Type': 'application/vnd.api+json',
