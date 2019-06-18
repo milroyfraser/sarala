@@ -10,6 +10,7 @@ import User from './dummy/models/User'
 import Tag from './dummy/models/Tag'
 import Comment from './dummy/models/Comment'
 import PostNoTagRelation from './dummy/models/PostNoTagRelation'
+import PostWithCustomizedProperty from './dummy/models/PostWithCustomizedProperty'
 
 describe('it hydrates', () => {
     beforeEach(() => {
@@ -113,5 +114,23 @@ describe('it hydrates', () => {
         const post = new PostNoTagRelation()
 
         await expect(post.find(1)).rejects.toThrow('Sarale: Relationship tags has not been defined in PostNoTagRelation model.')
+    })
+
+    test('customized property should work correctly', async () => {
+        moxios.stubRequest('https://sarala-demo.app/api/posts/', {
+            status: 200,
+            response: ApiPaginatedPostsList
+        })
+
+        const post = new PostWithCustomizedProperty()
+        let result = await post.all()
+
+        let post1 = result.data[0]
+        let post2 = result.data[1]
+
+        post1.metadata.push('cool')
+
+        expect(post1.metadata).toEqual(['cool'])
+        expect(post2.metadata).toEqual([])
     })
 })

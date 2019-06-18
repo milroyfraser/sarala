@@ -249,7 +249,7 @@ export default class Model {
     }
 
     hydrate (data) {
-        let model = clone(this)
+        let model = this.clone()
 
         model.id = data.id
         model.type = data.type
