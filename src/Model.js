@@ -102,6 +102,10 @@ export default class Model {
 
         let response = await this.request(config)
 
+        if (response.status === 204) {
+            return this.respond(this.clone())
+        }
+
         return this.respond(response.data)
     }
 
